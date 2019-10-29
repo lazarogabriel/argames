@@ -45,10 +45,7 @@
 
            </form>
          </div>
-         <div class="container">
-               <a style="border:1.1px solid yellow; letter-spacing:0.2em;  " class=" m-1 p-1 btn btn-yellow faqbutton" href="formulario_ingreso.php" role="button">VOLVER</a>
-
-               </div>
+         
      </header>
    </body>
  </html>

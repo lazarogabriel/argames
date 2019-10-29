@@ -1,0 +1,90 @@
+body{
+  background-color: #0606C5;
+  /* overflow-x: hidden; */
+}
+*{
+  letter-spacing:0.2px;
+  font-family: 'Montserrat', sans-serif;
+}
+.label{
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.button{
+  font-weight: 600;
+  font-size: 1.5em;
+}
+.field{
+  font-size: 1em;
+}
+.argames{
+  font-weight: 1000;
+  font-size: 6em;
+  color:#ffffff;
+  text-shadow: 15px 15px #00256a;
+}
+.argames_downtext{
+  color:white;
+  font-weight: normal;
+  font-size: 0.8em;
+}
+.faqbutton{
+  font-size: 1.2em;
+  color:white;
+  letter-spacing:6px;
+  font-weight: normal;
+}
+.destroy_button {
+  background-color:white ;
+  position: fixed;
+  z-index: 999;
+  transform: translateY(-50%);
+  top: 50%;
+  left: 0;
+
+  text-transform: uppercase;
+  font-size:25px;
+  height: 150px;
+  width:40px;
+  word-wrap: break-word;
+  text-align:center;
+  line-height:50px;
+}
+.destroy_button a{
+  text-decoration: none;
+  color:black;
+  font-weight: 600;
+}
+.destroy_button:hover{
+  
+  background-color: #00207f;
+  transition: 1.7s;
+}
+.destroy_button a:hover{
+  color:#FEC763;
+  transition: 1s;
+}
+.text-warning:hover{
+  text-decoration: none;
+}
+
+
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+ 
+    -webkit-box-shadow: inset 0 0 0px orange;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb{
+    border-radius: 0px;
+    -webkit-box-shadow: inset 0 0 20px yellow;
+}
+::-webkit-scrollbar-corner{
+  background-color: blue;
+}
