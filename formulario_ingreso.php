@@ -1,71 +1,36 @@
 <?php
 
+  include_once("servicios.php");
   session_start();
+  if($auth->estaLogueado()){header("Location:index.php"); exit;}
 
-  if ($_SESSION['user_login']) {
-    header('Location:index.php');
-    exit;
-  }
+  $username = "";
+  $password = "";
+  $errores = [];
 
-  $username=NULL;
+  if($_POST){
+    $errores = $validador->validarLogin($_POST, $db);
 
-if (isset($_POST['submit']) && !empty($_POST['submit'])) {
-  $_SESSION['user_login']=false;
-  if (empty($_POST['username'])) {
-    $usuarioVacioError= true;
-  }else {
-    $username =$_POST['username'];
-  }
-  if (empty($_POST['password'])){
-    $encontraseñaVaciaError= true;
-  }else {
-    $contraseña=$_POST['password'];
-  }
+    if(!isset($errores["loginUsernameFail"]) && !isset($errores["loginUsernameEmpty"]))$username = $_POST["username"];
 
-  $archivo = 'json/usuarios.json';
+    if(!isset($errores["loginPasswordEmpty"]) && !isset($errores["loginPasswordFail"]))$password = $_POST["password"];
 
-  if (file_exists($archivo)){
-    $usuariosJson = file_get_contents($archivo);
-    $usuarios = json_decode($usuariosJson,true);
-    $usuarioExiste = false;
-    foreach ($usuarios['usuarios'] as $usuario){
-      if ($usuario['username'] == $username) {
-        $usuarioExiste = true;
-        $contraseñaEncriptada = md5($contraseña);
-        if ($usuario['password'] == $contraseñaEncriptada){
-          $_SESSION['cartel_bienvenida']=true;
-          $_SESSION['id']=$usuario['id'];
-          $_SESSION['username']=$_POST['username'];
-          $_SESSION['password']=$_POST['password'];
-          $_SESSION['genero']=$usuario['gen'];
-          if($_POST['recordarme']=="on"){
-            $_SESSION['recordarme']=true;
-            setcookie('remember_username', $_SESSION['username'], time()+(10 * 365 * 24 * 60 * 60));
-            setcookie('remember_password', $_SESSION['password'], time()+(10 * 365 * 24 * 60 * 60));
-          }else{
-            setcookie('remember_username', NULL, time()-1);
-            setcookie('remember_password', NULL, time()-1);
-          }
-          $_SESSION['user_login']=true;
-          header('Location:index.php');
-          exit;
-        }else {
-          $contraseñaIncorrectaError = true;
-          break;
-        }
-      }
-    }
-
-    if (!$usuarioExiste) {
-      $usuarioNoExisteError= true;
-    }
-  }else{
-    echo "ERROR 505";
-    exit;
-  }
-}
+    if(!count($errores)){
+      $auth->loguear($username);
+      $_SESSION["user_object"] = $db->traerUser($username);
+      if($_POST['recordarme'] == "on"){
+         $_SESSION['recordarme'] = true;
+         setcookie('remember_username', $username, time()+(10 * 365 * 24 * 60 * 60));
+         setcookie('remember_password', $password, time()+(10 * 365 * 24 * 60 * 60));
+       }else{
+         setcookie('remember_username', NULL, time()-1);
+         setcookie('remember_password', NULL, time()-1);
+       }
+       header("Location:index.php");exit;
+     }
 
 
+   }
 ?>
 
 <!DOCTYPE html>
@@ -145,7 +110,7 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
             		<div class=" left"></div>
             		<div class=" right"></div>
             	</div>
-            	<?php if (isset($usuarioVacioError) ): ?>
+            	<?php if (isset($errores["loginUsernameEmpty"])): ?>
             		<div class=" cube-31 w-300 cube text-center">
             			<div class=" front">
             				<p class=" pt-1 mt-2 texto_validacion">¡El campo usuario esta vacio!</p>
@@ -157,7 +122,8 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
             			<div class=" right"></div>
             		</div>
             	<?php endif; ?>
-            	<?php if (isset($usuarioNoExisteError) && !$usuarioVacioError): ?>
+
+            	<?php if (isset($errores["loginUsernameFail"])): ?>
             		<div class=" cube-31 w-300 cube">
             			<div class=" front text-center">
             				<p class=" pt-1 mt-2 texto_validacion">¡El usuario no existe!</p>
@@ -169,6 +135,7 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
             			<div class=" right"></div>
             		</div>
             	<?php endif; ?>
+
             	<div class=" cube-6 w-180 cube">
             		<div class=" front"></div>
             		<div class=" back"></div>
@@ -213,7 +180,7 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
             	</div>
             	<div class=" cube-12 w-300 cube">
             		<div class=" front">
-            			<input type="password" value="<?=empty($_COOKIE['remember_password'])? NULL:$_COOKIE['remember_password'] ?>"name="password" id="password" placeholder="Tu contraseña" class=" field">
+            			<input type="password" value="<?=empty($_COOKIE['remember_password'])? "":$_COOKIE['remember_password'] ?>"name="password" id="password" placeholder="Tu contraseña" class=" field">
             		</div>
             		<div class=" back"></div>
             		<div class=" top"></div>
@@ -247,10 +214,10 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
                 </div>
               </div>
 
-          		<?php if (isset($contraseñaIncorrectaError)): ?>
+          		<?php if (isset($errores["loginPasswordEmpty"])): ?>
           			<div class=" cube-31 w-300 cube">
           				<div class=" front text-center" >
-          					<p class=" pt-1 mt-2  texto_validacion">¡contraseña incorrecta!</p>
+          					<p class=" pt-1 mt-2  texto_validacion">¡contraseña incompleta!</p>
           				</div>
           				<div class=" back"></div>
           				<div class=" top"></div>
@@ -259,6 +226,21 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
           				<div class=" right"></div>
           			</div>
           		  <?php endif; ?>
+
+                <?php if (isset($errores["loginPasswordFail"])): ?>
+            			<div class=" cube-31 w-300 cube">
+            				<div class=" front text-center" >
+            					<p class=" pt-1 mt-2  texto_validacion">¡contraseña incorrecta!</p>
+            				</div>
+            				<div class=" back"></div>
+            				<div class=" top"></div>
+            				<div class=" bottom"></div>
+            				<div class=" left"></div>
+            				<div class=" right"></div>
+            			</div>
+            		  <?php endif; ?>
+
+
             	<div class=" cube-16 w-300 cube">
             		<div class=" front"></div>
             		<div class=" back"></div>
@@ -333,17 +315,7 @@ if (isset($_POST['submit']) && !empty($_POST['submit'])) {
             </form>
         </div>
 
-				<div class="container">
-					<div class="row mb-3 align-items-center wow fadeInUp">
-						<div class="col-lg-10 col-md-9 col-sm-12 text-white">
-						 <p class="text-md-left text-center">© <script>document.write(new Date().getFullYear());</script> Todos los derechos reservados. Hecho por <a href="#" class=" text-warning" target="_blank"><span class=" font-weight-bold argames_link">ArGames</span></a></p>
-						</div>
-						<div class="col-lg-2 col-md-3  col-sm-12 copyrighy_footer justify-content-between d-flex">
-							<a style="border:1.1px solid yellow; letter-spacing:0.2em;" class="m-1 p-1 btn btn-yellow faqbutton" href="index.php" role="button">JUGAR</a>
-							<a style="border:1.1px solid yellow;" class="m-1 p-1 btn btn-yellow faqbutton" href="FAQ.php" role="button">F.A.Qs</a>
-						</div>
-					</div>
-				</div>
+			<?php include("sections/footer.html") ?>
 
     	</div>
     </div>

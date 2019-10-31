@@ -1,5 +1,9 @@
 <?php
+include_once("servicios.php");
+
 	session_start();
+
+
 
 ?>
 <!DOCTYPE html>
@@ -42,13 +46,12 @@
 							<ul class="wow bounceInRight">
 								<li ><a href="#cd-logo">INICIO</a></li>
 								<li><a href="FAQ.php">F.A.Qs</a></li>
-								<?php if ($_SESSION['user_login']): ?>
+								<?php if ($auth->estaLogueado()): ?>
 									<li><a href="perfil.php">PERFIL</a></li>
 									<li> <a href="destroy_session.php">SALIR</a></li>
 								<?php else: ?>
 									<li><a href="formulario_ingreso.php">INGRESAR</a></li>
 								<?php endif; ?>
-
 							</ul>
 						</nav>
 					</div>
@@ -148,27 +151,10 @@
 
 			</ul>
 		</main>
-		<div class="container">
-			<div class="row mb-3 align-items-center wow fadeInUp">
-				<div class="col-lg-10 col-md-9 col-sm-12 text-white">
-				 <p class="text-md-left text-center">© <script>document.write(new Date().getFullYear());</script> Todos los derechos reservados. Hecho por <a href="#" class=" text-warning" target="_blank"><span class=" font-weight-bold argames_link">ArGames</span></a></p>
-				</div>
-				<div class="col-lg-2 col-md-3  col-sm-12 copyrighy_footer justify-content-between d-flex">
-					<a style="border:1.1px solid yellow; letter-spacing:0.2em;" class=" m-1 p-1 btn text-warning faqbutton" href="#" role="button">RANKING</a>
-					<a style="border:1.1px solid yellow;" class="m-1 p-1 btn text-warning faqbutton" href="FAQ.php" role="button">F.A.Qs</a>
-				</div>
-			</div>
-		</div>
 
-				<!-- <script>
-									document.getElementById("welcome_card").style.display="block";
-									setTimeout(function(){
-									document.getElementById("welcome_card").style.display="none";
-								}, 3000);
-							}
-				</script> -->
+		<?php include("sections/footer.html") ?>
 
-			<script src="js/jquery-2.1.1.js"></script>
-			<script src="js/main.js"></script>
+		<script src="js/jquery-2.1.1.js"></script>
+		<script src="js/main.js"></script>
 	</body>
 </html>

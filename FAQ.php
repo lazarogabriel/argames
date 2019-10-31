@@ -1,4 +1,10 @@
-<?php session_start(); ?>
+<?php
+	include("servicios.php");
+
+	session_start();
+
+
+?>
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <head>
@@ -16,11 +22,9 @@
         new WOW().init();
         </script>
 
-
 	<title>F.A.Qs</title>
 </head>
 <body class="wow fadeIn">
-
 
 	<div class="container">
 		<div class="row">
@@ -31,15 +35,14 @@
 							<footer class="text-white blockquote-footer argames_downtext">this is argames, an argentinian games page</footer>
 					</div>
 				</header>
-
-				<div id="cd-nav" class="font-weight-bold ">
+				<div id="cd-nav" class="font-weight-bold">
 					<a href="#0" class="cd-nav-trigger">Menu<span></span></a>
 					<nav id="cd-main-nav" >
 						<ul class="wow bounceInRight">
 							<li><a href="index.php">INICIO</a></li>
-							<?php if ($_SESSION['user_login']): ?>
+							<?php if ($auth->estaLogueado()): ?>
 								<li><a href="perfil.php">PERFIL</a></li>
-								<li><a href="formulario_ingreso.php">SALIR</a></li>
+								<li><a href="destroy_session.php">SALIR</a></li>
 							<?php else: ?>
 								<li><a href="formulario_ingreso.php">INGRESAR</a></li>
 								<li><a href="formulario_registro.php">REGISTRARME</a></li>
@@ -51,7 +54,6 @@
 			</div>
 		</div>
 	</div>
-
 			<h2 class="FAQ_text font-weight-bold mb-0 wow jello">F.A.Qs</h2>
 			<h2 class="FAQ_SUBTEXT mt-1 mb-5 wow fadeIn">Preguntas frecuentes</h2>
 
@@ -65,7 +67,6 @@
 					    </symbol>
 					  </svg>
 					</div> -->
-
 					 <details class="wow jackInTheBox">  <!--AGREGARLE UN "open" como atributo para que aparezca abierta la tarjeta -->
 					  <summary>
 					    ¿Que es ArGames?
@@ -167,29 +168,9 @@
 					</details>
 
 
-
-    	<!--
-			<li class="wow pulse">
-				<img src="imagenes/thumb.jpg" alt="Preview image">
-			</li> -->
-
-			<div class="container pt-5">
-				<div class="row mb-3 align-items-center wow fadeInUp">
-					<div class="col-lg-10 col-md-9 col-sm-12 text-white">
-					 <p class="text-md-left text-center">© <script>document.write(new Date().getFullYear());</script> Todos los derechos reservados. Hecho por <a href="#" class=" text-warning" target="_blank"><span class=" font-weight-bold argames_link">ArGames</span></a></p>
-					</div>
-					<div class="col-lg-2 col-md-3  col-sm-12 copyrighy_footer justify-content-between d-flex">
-						<?php if ($_SESSION['user_login']): ?>
-							<a style="border:1.1px solid yellow; letter-spacing:0.2em;" class=" m-1 p-1 btn text-warning faqbutton" href="#" role="button">RANKING</a>
-						<?php else: ?>
-							<a style="border:1.1px solid yellow; letter-spacing:0.2em;" class=" m-1 p-1 btn text-warning faqbutton" href="index.php" role="button">JUGAR</a>
-						<?php endif; ?>
-						<a style="border:1.1px solid yellow;" class="m-1 p-1 btn text-warning faqbutton" href="FAQ.html" role="button">F.A.Qs</a>
-					</div>
-				</div>
-			</div>
+			<?php include("sections/footer.html") ?>
 
 		<script src="js/jquery-2.1.1.js"></script>
-		<script src="js/main.js"></script> <!-- Resource jQuery -->
+		<script src="js/main.js"></script>
 	</body>
 </html>

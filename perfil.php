@@ -1,124 +1,45 @@
 <?php
+  include("servicios.php");
   session_start();
 
+  if(!$auth->estaLogueado()){header("Location:index.php"); exit;}
 
-  if (!$_SESSION['user_login']) {   // ESTE SCRIPT SE FIJA SI EL USUARIO ESTA LOGEADO, EN CASO DE QUE NO LO REDIRECCIONA A QUE INGRESE
-    header('Location:formulario_ingreso.php');
-    exit;
+  $usuario = $_SESSION["user_object"];
+
+  $editar = (isset($_POST['editar_perfil']) && !empty($_POST['editar_perfil']))? true:false;
+  $aceptarEdicion = (isset($_POST['aceptar_edicion']) && !empty($_POST['aceptar_edicion']))? true:false;
+
+
+    $erorres = [];
+    $name = "";
+    $username = "";
+    $email = "";
+    $edad = "";
+    $genre= "";
+    $password= "";
+
+  if ($aceptarEdicion){
+    $errores = $validador->validarInformacion($_POST, $db);
+
+    if(!isset($errores["usernameShort"]) && !isset($errores["usernameLong"]) && !isset($errores["usernameExist"]))$username= $_POST["username"];
+    if(!isset($errores["nameShort"]) && !isset($errores["nameLong"]))$name = $_POST["name"];
+    if(!isset($erorres["emailEmpty"]) && !isset($errores["emailWrong"]) && !isset($errores["emailExist"]))$email=$_POST["email"];
+    if(!isset($errores["cPaswordEmpty"]) && !isset($errores["cPasswordFail"]))$password = md5($_POST["cPassword"]);
+    if(!isset($errores["emptyAge"]) && !isset($errores["outIntervalAge"]))$edad = $_POST["edad"];
+
+    if(!count($errores)){
+      $ext = pathinfo($_FILES["imagen"]["name"], PATHINFO_EXTENSION);
+      $usuario = new Usuario($name, $email, $username, $password, $genre, $edad, '' ,$ext);
+
+      $tmp_file = $_FILES["imagen"]["tmp_name"];
+      $directorio_destino = dirname(__FILE__) . "/" . "archivos_subidos/$username." . $ext;
+      move_uploaded_file($tmp_file, $directorio_destino);
+
+      $_SESSION["user_object"] = $db->guardarUsuario($usuario);
+      header("Location:index.php");exit;
+    }
   }
 
-   $Editar = (isset($_POST['editar_perfil']) && !empty($_POST['editar_perfil']))? true:false;
-   $AceptarEdicion = (isset($_POST['aceptar_edicion']) && !empty($_POST['aceptar_edicion']))? true:false;
-
-   $usuarios = [];
-
-   if (file_exists("json/usuarios.json")){
-     $usuariosJson=file_get_contents('json/usuarios.json');
-     $usuarios=json_decode($usuariosJson,true);
-
-   }else{
-     echo "THE DATA BASE IS BROCKEN, PLEASE GO THE HELL";
-     exit;
-   }
-   $id=$_SESSION['id'];
-   $name = $usuarios['usuarios'][$id]['name'];
-   $username = $usuarios['usuarios'][$id]['username'];
-   $email = $usuarios['usuarios'][$id]['email'];
-   $edad = $usuarios['usuarios'][$id]['edad'];
-   $genre= $usuarios['usuarios'][$id]['gen'];
-   $password= $usuarios['usuarios'][$id]['password'];
-
-   $emptyUsernameError = false;
-   $invalidEmailError = false;
-   $notNumericAgeError = false;
-   $emptyGenreError = false;
-   $confirmPasswordError = false;
-   $registeredUsernameError = false;
-   $extArchivoError=false;
-
-   if ($AceptarEdicion){
-
-     foreach ($usuarios['usuarios'] as $usuario) {
-        if ($usuarios['usuarios'][$id]['username'] != $_POST['username']) {
-          if($usuario['username'] == $_POST['username']){
-              $registeredUsernameError = true;
-            }
-         }
-     }
-     if (!empty($_POST["name"])){
-       $name=$_POST["name"];
-     }
-      if (strlen($_POST["username"]) >= 15) {
-        $emptyUsernameError = true;
-      }elseif(!empty($_POST["username"])){
-        $username=$_POST["username"];
-     }
-     if (!filter_var($_POST["email"],FILTER_VALIDATE_EMAIL)) {
-       $invalidEmailError = true;
-     }elseif(!empty($_POST["email"]) ){
-       $email = $_POST["email"];
-     }
-     if (!is_numeric($_POST["edad"])) {
-       $notNumericAgeError = true;
-     }elseif(!empty($_POST["edad"])){
-        $edad=$_POST["edad"];
-     }
-     if (!empty($_POST["gen"])){
-       $genre=$_POST["gen"];
-     }
-     if (!empty($_POST["password"]) ) {
-       if (empty($_POST["confirm_password"]) || $_POST["password"]!= $_POST["confirm_password"] ) {
-         $confirmPasswordError = true;
-       } else {
-         $password = md5($_POST["password"]);
-       }
-     }
-
-     if ($_FILES["imagen"]["error"]===UPLOAD_ERR_OK) {
-       $nombre=$_FILES["imagen"]["name"];
-       $archivoTmp=$_FILES["imagen"]["tmp_name"];
-       $ext=pathinfo($nombre,PATHINFO_EXTENSION);
-       $tipoImg=["jpg","png","bmp","JPG","gif"];
-       if (in_array($ext,$tipoImg)) {
-         $miArchivo=dirname(__FILE__) . "/" . "archivos_subidos/$id." . $ext;
-       }else{
-           $extArchivoError=true;
-       }
-     }
-
-     if (!$extArchivoError && !$emptyNameError && !$invalidEmailError && !$notNumericAgeError && !$emptyGenreError && !$confirmPasswordError && !$registeredUsernameError) {
-
-       move_uploaded_file($archivoTmp,$miArchivo);
-       echo "El archivo se subio con exito";
-           $usuarios['usuarios'][$_SESSION['id']]['name']=$name;
-           $usuarios['usuarios'][$id]['email']=$email;
-           $usuarios['usuarios'][$id]['username']=$username;
-           $usuarios['usuarios'][$id]['gen']=$genre;
-           $usuarios['usuarios'][$id]['edad']=$edad;
-           $usuarios['usuarios'][$id]['password']=$password;
-
-         if ($_POST['recordarme']!="on"){
-           $_SESSION['recordarme']=false;
-           setcookie('remember_username', NULL, time()-1);
-           setcookie('remember_password', NULL, time()-1);
-        }else{
-          $_SESSION['recordarme']=true;
-          setcookie('remember_username', $username, time()+(10 * 365 * 24 * 60 * 60));
-         if (empty($_POST['password'])){
-           setcookie('remember_password', $_SESSION['password'], time()+(10 * 365 * 24 * 60 * 60));
-         }else{
-           setcookie('remember_password', $_POST['password'], time()+(10 * 365 * 24 * 60 * 60));
-         }
-        }
-
-       $usuariosJson = json_encode($usuarios,JSON_PRETTY_PRINT);
-       file_put_contents('json/usuarios.json',$usuariosJson);
-
-     }else{
-       $Editar=true;
-
-     }
-   }
 
 ?>
 <!DOCTYPE html>
@@ -163,263 +84,227 @@
       </div>
     </div>
 
+  <div class="container emp-profile mt-md-0 wow flipInY">
 
-    <div class="container emp-profile mt-md-0 wow flipInY">
+      <form method="post" enctype="multipart/form-data">
+          <div class="row">
+              <div class="col-lg-4">
+                      <div class="profile-img mt-md-5 wow swing">
+                        <?php var_dump($_SESSION, $_COOKIE);exit; ?>
 
-          <form method="post" enctype="multipart/form-data">
-              <div class="row">
-
-                  <div class="col-lg-4">
-                          <div class="profile-img mt-md-5 wow swing">
-                              <img src="archivos_subidos/<?=$id . "." . $usuarios['usuarios'][$id]['ext_foto']?>" class="" alt=""/><!-- FALTA AGREGAR ALGO-->
-                          </div>
-
-                    <?php if ($Editar): ?>
-                          <div class="file btn btn-lg btn-primary">
-                              Cambiar foto
-                            <input type="file" name="imagen" class="btn btn-warning"/>
-                            <?=$extArchivoError? "Error al subir la foto": ""; ?>
-                          </div>
-                    <?php endif; ?>
-                  </div>
-                  <div class="col-lg-6">
-                      <div class="profile-head  ">
-                                  <h5 class="">
-                                      <?=$username ?>
-                                  </h5>
-                                  <h6>
-                                    Senior   <!--TIPO DE JUGADOR, DEPENDE DE LAS VARIABLES "TIEMPO JUGADO", "SCORE". TRAINEE/JUNIOR/SEMI SENIO/SENIOR  -->
-                                  </h6>
-                                  <p class="proile-rating">RANKING: <span>8/10</span></p> <!-- HACER UNA SUMA DE TODOS LOS SCORE Y CALCULAR RANKING-->
-                          <ul class="nav nav-tabs" id="myTab" role="tablist">
-                              <li class="nav-item">
-                                  <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Mis datos</a>
-                              </li>
-                              <li class="nav-item">
-                                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Mi rank</a>
-                              </li>
-
-                          </ul>
+                          <img src="archivos_subidos/<?=$usuario->getUsername() . "." . $usuarios->getExtencionFoto();?>" class="" alt=""/><!-- FALTA AGREGAR ALGO-->
                       </div>
-                      <div class="col-md-12">
-                          <div class="tab-content profile-tab " id="myTabContent">
-
-                              <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                          <div class="row wow fadeInUp">
-                                              <div class="col-md-6 ">
-                                                  <label>ID Usuario</label>
-                                              </div>
-                                              <div class="col-md-6 ">
-                                                  <?=$id?>
-                                              </div>
-                                          </div>
-                                          <div class="row ">
-                                              <div class="col-md-6 ">
-                                                  <label>Nombre de usuario</label>
-                                              </div>
-                                              <div class="col-md-6 ">
-                                                <?php if ($Editar): ?>
-                                                  <input type="text" name="username" class="input_editar" value="<?=$username?>"><?=$registeredUsernameError ? "El nombre de usuario ingresado ya exixste!":"";  ?>
-                                                  <?php else: ?>
-                                                    <p><?=$username?></p>
-                                                <?php endif; ?>
-
-                                              </div>
-                                          </div>
-                                          <div class="row wow fadeInUp">
-                                              <div class="col-md-6">
-                                                  <label>Nombre</label>
-                                              </div>
-                                              <div class="col-md-6">
-                                                <?php if ($Editar): ?>
-                                                  <input type="text" name="name" class="input_editar" value="<?=$name?>"><?=$emptyNameError ? "El nombre ingresado supera los 15 caracteres!":"";  ?>
-                                                  <?php else: ?>
-                                                    <p><?=$name?></p>
-                                                <?php endif; ?>
-                                              </div>
-                                          </div>
-                                          <div class="row wow fadeInUp">
-                                              <div class="col-md-6">
-                                                  <label>Email</label>
-                                              </div>
-                                              <div class="col-md-6">
-                                                <?php if ($Editar): ?>
-                                                  <input type="text" name="email" class="input_editar" value="<?=$email?>"><?=$invalidEmailError ? "El email no es correcto!":"";  ?>
-                                                  <?php else: ?>
-                                                    <p><?=$email?></p>
-                                                <?php endif; ?>
-                                              </div>
-                                          </div>
-
-                                          <div class="row wow fadeInUp">
-                                              <div class="col-md-6">
-                                                  <label>Genero</label>
-                                              </div>
-                                              <div class="col-md-6">
-                                                <?php if ($Editar): ?>
-                                                  <input class="radio_boton" type="radio" name="gen" value="v"<?= ($genre == "v")?"checked":"" ?>> Varon&nbsp;
-                                                  <input class="radio_boton" type="radio" name="gen" value="m"<?= ($genre == "m")?"checked":"" ?>> Mujer&nbsp;
-                                                  <input class="radio_boton" type="radio" name="gen" value="o"<?= ($genre == "o")?"checked":"" ?>> Otro
-                                                  <?php else: ?>
-                                                    <p><?=($genre == "v")? "Varon" : (($genre == "m")? "Mujer":"Otro"); ?> </p>
-                                                <?php endif; ?>
-                                              </div>
-                                          </div>
-                                          <div class="row wow fadeInUp">
-                                              <div class="col-md-6">
-                                                  <label>Edad</label>
-                                              </div>
-                                              <div class="col-md-6">
-                                                <?php if ($Editar): ?>
-                                                  <input type="number" name="edad" class="input_editar" value="<?=$edad?>"><?=$notNumericAgeError ? "La edad debe ser numerica!":"";  ?>
-                                                  <?php else: ?>
-                                                    <p><?=$edad ?></p>
-                                                <?php endif; ?>
-                                              </div>
-                                          </div>
-                                          <div class="row wow fadeInUp">
-                                              <div class="col-md-6 pb-2">
-                                                  <label>Recordarme</label>
-                                              </div>
-                                              <div class="col-md-6">
-                                                <?php if ($Editar): ?>
-                                                  <input type="checkbox" name="recordarme" <?=$_COOKIE['remember_username']!=NULL ? "checked":"";?>>
-                                                  <?php else: ?>
-                                                    <?php if ($_SESSION['recordarme']): ?>
-                                                      <input type="checkbox" class=" mt-2 mb-3" checked disabled>
-                                                      <?php else: ?>
-                                                        <input type="checkbox" disabled>
-                                                    <?php endif; ?>
-                                                <?php endif; ?>
-                                              </div>
-                                          </div>
-                                          <div class="row wow fadeInUp">
-                                              <div class="col-md-6">
-                                                  <label>Contraseña</label>
-                                              </div>
-                                              <div class="col-md-6">
-                                                <?php if ($Editar): ?>
-                                                    <input type="password" name="password" class="input_editar">
-                                                  <?php else: ?>
-                                                    <p>&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;</p>
-                                                <?php endif; ?>
-                                              </div>
-                                          </div>
-                                        <?php if ($Editar): ?>
-                                          <div class="row wow fadeInUp">
-                                              <div class="col-md-6">
-                                                  <label>Confirmar contraseña</label>
-                                              </div>
-                                              <div class="col-md-6">
-                                                  <input type="password" name="confirm_password" class="input_editar" value="">
-                                                  <?= $confirmPasswordError?"Las contraseñas no coinciden":""; ?>
-                                              </div>
-                                          </div>
-                                        <?php endif; ?>
-                                        </div>
-
-
-                              <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                          <div class="row">
-                                              <div class="col-md-6">
-                                                  <label>Experiencia</label>
-                                              </div>
-                                              <div class="col-md-6">
-                                                  <p>Senior</p>
-                                              </div>
-                                          </div>
-                                          <div class="row">
-                                              <div class="col-md-6">
-                                                  <label>Tiempo jugado</label>
-                                              </div>
-                                              <div class="col-md-6">
-                                                  <p>01:03:30</p>
-                                              </div>
-                                          </div>
-                                          <div class="row">
-                                              <div class="col-md-6">
-                                                  <label>Veces jugadas</label>
-                                              </div>
-                                              <div class="col-md-6">
-                                                  <p>7</p>
-                                              </div>
-                                          </div>
-                                          <div class="row">
-                                              <div class="col-md-6">
-                                                  <label>Veces ingresadas</label>
-                                              </div>
-                                              <div class="col-md-6">
-                                                  <p>32</p>
-                                              </div>
-                                          </div>
-
-                              </div>
-
+                <?php if($editar): ?>
+                      <div class="file btn btn-lg btn-primary">
+                          Cambiar foto
+                        <input type="file" name="imagen" class="btn btn-warning"/>
+                        <?=(isset($errores["extFileError"]) || isset($errores["fileError"]))? "Error al subir la foto": ""; ?>
+                      </div>
+                <?php endif; ?>
+              </div>
+              <div class="col-lg-6">
+                  <div class="profile-head  ">
+                              <h5 class="">
+                                  <?=$usuario->getUsername()?>
+                              </h5>
+                              <h6>
+                                Senior   <!--TIPO DE JUGADOR, DEPENDE DE LAS VARIABLES "TIEMPO JUGADO", "SCORE". TRAINEE/JUNIOR/SEMI SENIO/SENIOR  -->
+                              </h6>
+                              <p class="proile-rating">RANKING: <span>8/10</span></p> <!-- HACER UNA SUMA DE TODOS LOS SCORE Y CALCULAR RANKING-->
+                      <ul class="nav nav-tabs" id="myTab" role="tablist">
+                          <li class="nav-item">
+                              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Mis datos</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Mi rank</a>
+                          </li>
+                      </ul>
+                  </div>
+                <div class="col-md-12">
+                  <div class="tab-content profile-tab " id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                      <div class="row wow fadeInUp">
+                          <div class="col-md-6 ">
+                              <label>ID Usuario</label>
+                          </div>
+                          <div class="col-md-6 ">
+                              <?=$usuario->getId();?>
                           </div>
                       </div>
-                  </div>
-                  <div class="col-lg-2 text-center wow bounceInLeft">
-                  <?php if (isset($_POST['editar_perfil']) && !empty($_POST['editar_perfil'])): ?>
-                      <input type="submit" class="profile-edit-btn mt-3 mb-2" name="aceptar_edicion" value="ACEPTAR"/>
-                    <?php else: ?>
-                      <input type="submit" class="profile-edit-btn mt-3 mb-2" name="editar_perfil" value="EDITAR"/>
+                      <div class="row ">
+                          <div class="col-md-6 ">
+                              <label>Nombre de usuario</label>
+                          </div>
+                          <div class="col-md-6 ">
+                            <?php if ($editar): ?>
+                              <input type="text" name="username" class="input_editar" value="<?=$usuario->getUsername?>">
+                              <?=(isset($errores["usernameShort"]) || isset($errores["usernameLong"]) || isset($errores["usernameExist"])) ? "El nombre de usuario ingresado es invalido!":"";  ?>
+                              <?php else: ?>
+                                <p><?=$usuario->getUsername();?></p>
+                            <?php endif; ?>
+                          </div>
+                      </div>
+                      <div class="row wow fadeInUp">
+                          <div class="col-md-6">
+                              <label>Nombre</label>
+                          </div>
+                          <div class="col-md-6">
+                            <?php if ($editar): ?>
+                              <input type="text" name="name" class="input_editar" value="<?=$usuario->getName()?>">
+                              <?=(isset($errores["nameShort"]) || isset($errores["nameLong"])) ? "El nombre ingresado debe ser de entre 5 y 30 caracteres!":"";  ?>
+                              <?php else: ?>
+                                <p><?=$usuario->getName()?></p>
+                            <?php endif; ?>
+                          </div>
+                      </div>
+                      <div class="row wow fadeInUp">
+                          <div class="col-md-6">
+                              <label>Email</label>
+                          </div>
+                          <div class="col-md-6">
+                            <?php if ($editar): ?>
+                              <input type="text" name="email" class="input_editar" value="<?=$usuario->getEmail()?>">
+                              <?=(isset($erorres["emailEmpty"]) || isset($errores["emailWrong"]) || isset($errores["emailExist"])) ? "El email es incorrecto!":"";?>
+                              <?php else: ?>
+                                <p><?=$usuario->getEmail()?></p>
+                            <?php endif; ?>
+                          </div>
+                      </div>
+
+                      <div class="row wow fadeInUp">
+                          <div class="col-md-6">
+                              <label>Genero</label>
+                          </div>
+                          <div class="col-md-6">
+                            <?php if ($editar): ?>
+                              <input class="radio_boton" type="radio" name="gen" value="v"<?= ($usuario->getGenre() == "v")?"checked":"" ?>> Varon&nbsp;
+                              <input class="radio_boton" type="radio" name="gen" value="m"<?= ($usuario->getGenre() == "m")?"checked":"" ?>> Mujer&nbsp;
+                              <input class="radio_boton" type="radio" name="gen" value="o"<?= ($usuario->getGenre() == "o")?"checked":"" ?>> Otro
+                              <?php else: ?>
+                                <p><?=($usuario->getGenre() == "v")? "Varon" : (($usuario->getGenre() == "m")? "Mujer":"Otro"); ?> </p>
+                            <?php endif; ?>
+                          </div>
+                      </div>
+                      <div class="row wow fadeInUp">
+                          <div class="col-md-6">
+                              <label>Edad</label>
+                          </div>
+                          <div class="col-md-6">
+                            <?php if ($editar): ?>
+                              <input type="number" name="edad" class="input_editar" value="<?=$usuario->getEdad()?>">
+                              <?=$notNumericAgeError ? "La edad debe ser numerica!":"";  ?>
+                              <?php else: ?>
+                                <p><?=$usuario->getEdad() ?></p>
+                            <?php endif; ?>
+                          </div>
+                      </div>
+                      <div class="row wow fadeInUp">
+                          <div class="col-md-6 pb-2">
+                              <label>Recordarme</label>
+                          </div>
+                          <div class="col-md-6">
+                            <?php if ($editar): ?>
+                              <input type="checkbox" name="recordarme" <?=$_COOKIE['remember_username']!=NULL ? "checked":"";?>>
+                              <?php else: ?>
+                                <?php if ($_SESSION['recordarme']): ?>
+                                  <input type="checkbox" class=" mt-2 mb-3" checked disabled>
+                                  <?php else: ?>
+                                    <input type="checkbox" disabled>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                          </div>
+                      </div>
+                      <div class="row wow fadeInUp">
+                          <div class="col-md-6">
+                              <label>Contraseña</label>
+                          </div>
+                          <div class="col-md-6">
+                            <?php if ($editar): ?>
+                                <input type="password" name="password" class="input_editar">
+                              <?php else: ?>
+                                <p>&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;</p>
+                            <?php endif; ?>
+                          </div>
+                      </div>
+                    <?php if ($editar): ?>
+                      <div class="row wow fadeInUp">
+                          <div class="col-md-6">
+                              <label>Confirmar contraseña</label>
+                          </div>
+                          <div class="col-md-6">
+                              <input type="password" name="confirm_password" class="input_editar" value="">
+                              <?=(isset($errores["cPaswordEmpty"]) || isset($errores["cPasswordFail"]))?"Las contraseñas no coinciden":""; ?>
+                          </div>
+                      </div>
                     <?php endif; ?>
+                  </div>
+
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                      <div class="row">
+                          <div class="col-md-6">
+                              <label>Experiencia</label>
+                          </div>
+                          <div class="col-md-6">
+                              <p>Senior</p>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-6">
+                              <label>Tiempo jugado</label>
+                          </div>
+                          <div class="col-md-6">
+                              <p>01:03:30</p>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-6">
+                              <label>Veces jugadas</label>
+                          </div>
+                          <div class="col-md-6">
+                              <p>7</p>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-6">
+                              <label>Veces ingresadas</label>
+                          </div>
+                          <div class="col-md-6">
+                              <p>32</p>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-2 text-center wow bounceInLeft">
+              <?php if ($editar): ?>
+                  <input type="submit" class="profile-edit-btn mt-3 mb-2" name="aceptar_edicion" value="ACEPTAR"/>
+                <?php else: ?>
+                  <input type="submit" class="profile-edit-btn mt-3 mb-2" name="editar_perfil" value="EDITAR"/>
+                <?php endif; ?>
+              </div>
+          </div>
+
+          <!-- <div class="row">
+              <div class="col-md-4">
+                  <div class="profile-work">
+                      <p>WORK LINK</p>
+                      <a href="">Website Link</a><br/>
+                      <a href="">Bootsnipp Profile</a><br/>
+                      <a href="">Bootply Profile</a>
+                      <p>SKILLS</p>
+                      <a href="">Web Designer</a><br/>
+                      <a href="">Web Developer</a><br/>
+                      <a href="">WordPress</a><br/>
+                      <a href="">WooCommerce</a><br/>
+                      <a href="">PHP, .Net</a><br/>
                   </div>
               </div>
+          </div> -->
+      </form>
+    </div>
 
-              <!-- <div class="row">
-                  <div class="col-md-4">
-                      <div class="profile-work">
-                          <p>WORK LINK</p>
-                          <a href="">Website Link</a><br/>
-                          <a href="">Bootsnipp Profile</a><br/>
-                          <a href="">Bootply Profile</a>
-                          <p>SKILLS</p>
-                          <a href="">Web Designer</a><br/>
-                          <a href="">Web Developer</a><br/>
-                          <a href="">WordPress</a><br/>
-                          <a href="">WooCommerce</a><br/>
-                          <a href="">PHP, .Net</a><br/>
-                      </div>
-                  </div>
-              </div> -->
-          </form>
-      </div>
-
-
-
-
-      <div class="container">
-        <div class="row mb-3 align-items-center wow fadeInUp">
-          <div class="col-lg-10 col-md-9 col-sm-12 text-white">
-           <p class="text-md-left text-center">© <script>document.write(new Date().getFullYear());</script> Todos los derechos reservados. Hecho por <a href="#" class=" text-warning" target="_blank"><span class=" font-weight-bold argames_link">ArGames</span></a></p>
-          </div>
-          <div class="col-lg-2 col-md-3  col-sm-12 copyrighy_footer justify-content-between d-flex">
-            <a style="border:1.1px solid yellow; letter-spacing:0.2em;" class=" m-1 p-1 btn text-warning faqbutton" href="#" role="button">RANKING</a>
-            <a style="border:1.1px solid yellow;" class="m-1 p-1 btn text-warning faqbutton" href="FAQ.php" role="button">F.A.Qs</a>
-          </div>
-        </div>
-
-      </div>
-
-
-
-
-
-
-
-
-
-
-    <!-- <form action="index.html" method="post">
-       if ($cookieDelete):
-        <label for="borrar_cookie"></label>
-        <input type="text" name="" value="">
-
-    </form> -->
-
-
-
+    <?php include("sections/footer.html"); ?>
 
     <script src="js/jquery-2.1.1.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
