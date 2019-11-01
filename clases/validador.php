@@ -54,7 +54,7 @@
 
             if($_FILES["imagen"]["error"]===UPLOAD_ERR_OK){
                $ext = pathinfo($_FILES["imagen"]["name"], PATHINFO_EXTENSION);
-               $extenciones_validas = ["jpg","png","bmp","JPG","gif"];
+               $extenciones_validas = ["jpeg", "jpg","png","bmp","JPG","gif"];
                if(!in_array($ext, $extenciones_validas))$errores["extFileError"] = "La extencion del archivo es invalida";
              }else{
                $errores["fileError"] = "Archivo invalido";
@@ -80,7 +80,7 @@
             if($informacion["password"] == ""){
                 $errores["loginPasswordEmpty"] = "Debe ingresar una contraseña";
             }elseif($usuario != NULL){
-              if(md5($informacion["password"]) != $usuario["pass"])$errores["loginPasswordFail"] = "La contraseña es incorrecta";
+              if(md5($informacion["password"]) != $usuario["password"])$errores["loginPasswordFail"] = "La contraseña es incorrecta";
             }
             return $errores;
         }

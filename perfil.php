@@ -1,46 +1,61 @@
 <?php
+
   include("servicios.php");
   session_start();
 
   if(!$auth->estaLogueado()){header("Location:index.php"); exit;}
 
   $usuario = $_SESSION["user_object"];
+  $erorres = [];
+  $name = $usuario->getName();
+  $username = $usuario->getUsername();
+  $email = $usuario->getEmail();
+  $edad = $usuario->getEdad();
+  $genre = $usuario->getGenre();
 
   $editar = (isset($_POST['editar_perfil']) && !empty($_POST['editar_perfil']))? true:false;
-  $aceptarEdicion = (isset($_POST['aceptar_edicion']) && !empty($_POST['aceptar_edicion']))? true:false;
+  $aceptarEditar = (isset($_POST['aceptar_edicion']) && !empty($_POST['aceptar_edicion']))? true:false;
 
-
-    $erorres = [];
-    $name = "";
-    $username = "";
-    $email = "";
-    $edad = "";
-    $genre= "";
-    $password= "";
-
-  if ($aceptarEdicion){
+  if($aceptarEditar){
     $errores = $validador->validarInformacion($_POST, $db);
+    if(!strcasecmp($usuario->getUsername(), $username= $_POST["username"])) unset($errores["usernameExist"]);
+    if($usuario->getEmail() == $_POST["email"]) unset($errores["emailExist"]);
+    if($_FILES["imagen"]["error"]) unset($errores["fileError"]);
+    if($_POST["password"]=="" && $_POST["cPassword"]==""){
+      unset($errores["passwordEmpty"]);
+      unset($errores["cPasswordEmpty"]);
+    }
 
     if(!isset($errores["usernameShort"]) && !isset($errores["usernameLong"]) && !isset($errores["usernameExist"]))$username= $_POST["username"];
-    if(!isset($errores["nameShort"]) && !isset($errores["nameLong"]))$name = $_POST["name"];
-    if(!isset($erorres["emailEmpty"]) && !isset($errores["emailWrong"]) && !isset($errores["emailExist"]))$email=$_POST["email"];
-    if(!isset($errores["cPaswordEmpty"]) && !isset($errores["cPasswordFail"]))$password = md5($_POST["cPassword"]);
+    if(!isset($errores["nameShort"]) || !isset($errores["nameLong"]))$name = $_POST["name"];
+    if(!isset($erorres["emailEmpty"]) && !isset($errores["emailWrong"]) || !isset($errores["emailExist"]))$email=$_POST["email"];
+    if(!isset($errores["cPasswordFail"]))$password = md5($_POST["password"]);
     if(!isset($errores["emptyAge"]) && !isset($errores["outIntervalAge"]))$edad = $_POST["edad"];
+    if(!isset($errores["genreEmpty"]))$genre = $_POST["gen"];
 
     if(!count($errores)){
-      $ext = pathinfo($_FILES["imagen"]["name"], PATHINFO_EXTENSION);
-      $usuario = new Usuario($name, $email, $username, $password, $genre, $edad, '' ,$ext);
+      if($_FILES["imagen"]["error"]===UPLOAD_ERR_OK){
+        unlink("archivos_subidos/" . $usuario->getId() . "." . $usuario->getExtencionFoto());
+        $ext = pathinfo($_FILES["imagen"]["name"], PATHINFO_EXTENSION);
+        $usuario->setExtencionFoto($ext);
+        $tmp_file = $_FILES["imagen"]["tmp_name"];
+        $directorio_destino = dirname(__FILE__) . "/" . "archivos_subidos/" . $usuario->getId() . "." . $ext;
+        move_uploaded_file($tmp_file, $directorio_destino);
+      }
 
-      $tmp_file = $_FILES["imagen"]["tmp_name"];
-      $directorio_destino = dirname(__FILE__) . "/" . "archivos_subidos/$username." . $ext;
-      move_uploaded_file($tmp_file, $directorio_destino);
+      $usuario->setUsername($username);
+      $usuario->setEmail($email);
+      $usuario->setEdad($edad);
+      $usuario->setName($name);
+      $usuario->setGenre($genre);
+      $usuario->setPassword($password);
 
-      $_SESSION["user_object"] = $db->guardarUsuario($usuario);
-      header("Location:index.php");exit;
+      $_SESSION["user_object"] = $db->modificarUsuario($usuario->getId(), $usuario);
+      $auth->loguear($username);
+    }else{
+      $editar = true;
     }
   }
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -90,9 +105,7 @@
           <div class="row">
               <div class="col-lg-4">
                       <div class="profile-img mt-md-5 wow swing">
-                        <?php var_dump($_SESSION, $_COOKIE);exit; ?>
-
-                          <img src="archivos_subidos/<?=$usuario->getUsername() . "." . $usuarios->getExtencionFoto();?>" class="" alt=""/><!-- FALTA AGREGAR ALGO-->
+                          <img src="<?="archivos_subidos/" . $usuario->getId() . "." . $usuario->getExtencionFoto()?>" class="" alt=""/><!-- FALTA AGREGAR ALGO-->
                       </div>
                 <?php if($editar): ?>
                       <div class="file btn btn-lg btn-primary">
@@ -137,10 +150,10 @@
                           </div>
                           <div class="col-md-6 ">
                             <?php if ($editar): ?>
-                              <input type="text" name="username" class="input_editar" value="<?=$usuario->getUsername?>">
-                              <?=(isset($errores["usernameShort"]) || isset($errores["usernameLong"]) || isset($errores["usernameExist"])) ? "El nombre de usuario ingresado es invalido!":"";  ?>
+                              <input type="text" name="username" class="input_editar" value="<?=$username?>">
+                              <?=(isset($errores["usernameShort"]) || isset($errores["usernameLong"]) || isset($errores["usernameExist"])) ? "El nombre de usuario ingresado es invalido!":""?>
                               <?php else: ?>
-                                <p><?=$usuario->getUsername();?></p>
+                                <p><?=$username?></p>
                             <?php endif; ?>
                           </div>
                       </div>
@@ -150,10 +163,10 @@
                           </div>
                           <div class="col-md-6">
                             <?php if ($editar): ?>
-                              <input type="text" name="name" class="input_editar" value="<?=$usuario->getName()?>">
-                              <?=(isset($errores["nameShort"]) || isset($errores["nameLong"])) ? "El nombre ingresado debe ser de entre 5 y 30 caracteres!":"";  ?>
+                              <input type="text" name="name" class="input_editar" value="<?=$name?>">
+                              <?=(isset($errores["nameShort"]) || isset($errores["nameLong"])) ? "El nombre ingresado debe ser de entre 5 y 30 caracteres!":""?>
                               <?php else: ?>
-                                <p><?=$usuario->getName()?></p>
+                                <p><?=$name?></p>
                             <?php endif; ?>
                           </div>
                       </div>
@@ -163,10 +176,10 @@
                           </div>
                           <div class="col-md-6">
                             <?php if ($editar): ?>
-                              <input type="text" name="email" class="input_editar" value="<?=$usuario->getEmail()?>">
-                              <?=(isset($erorres["emailEmpty"]) || isset($errores["emailWrong"]) || isset($errores["emailExist"])) ? "El email es incorrecto!":"";?>
+                              <input type="text" name="email" class="input_editar" value="<?=$email?>">
+                              <?=(isset($erorres["emailEmpty"]) || isset($errores["emailWrong"]) || isset($errores["emailExist"])) ? "El email es incorrecto!":""?>
                               <?php else: ?>
-                                <p><?=$usuario->getEmail()?></p>
+                                <p><?=$email?></p>
                             <?php endif; ?>
                           </div>
                       </div>
@@ -177,11 +190,11 @@
                           </div>
                           <div class="col-md-6">
                             <?php if ($editar): ?>
-                              <input class="radio_boton" type="radio" name="gen" value="v"<?= ($usuario->getGenre() == "v")?"checked":"" ?>> Varon&nbsp;
-                              <input class="radio_boton" type="radio" name="gen" value="m"<?= ($usuario->getGenre() == "m")?"checked":"" ?>> Mujer&nbsp;
-                              <input class="radio_boton" type="radio" name="gen" value="o"<?= ($usuario->getGenre() == "o")?"checked":"" ?>> Otro
+                              <input class="radio_boton" type="radio" name="gen" value="v"<?= ($genre == "v")?"checked":"" ?>> Varon&nbsp;
+                              <input class="radio_boton" type="radio" name="gen" value="m"<?= ($genre == "m")?"checked":"" ?>> Mujer&nbsp;
+                              <input class="radio_boton" type="radio" name="gen" value="o"<?= ($genre == "o")?"checked":"" ?>> Otro
                               <?php else: ?>
-                                <p><?=($usuario->getGenre() == "v")? "Varon" : (($usuario->getGenre() == "m")? "Mujer":"Otro"); ?> </p>
+                                <p><?=($genre == "v")? "Varon" : (($genre == "m")? "Mujer":"Otro")?> </p>
                             <?php endif; ?>
                           </div>
                       </div>
@@ -191,10 +204,10 @@
                           </div>
                           <div class="col-md-6">
                             <?php if ($editar): ?>
-                              <input type="number" name="edad" class="input_editar" value="<?=$usuario->getEdad()?>">
-                              <?=$notNumericAgeError ? "La edad debe ser numerica!":"";  ?>
+                              <input type="number" name="edad" class="input_editar" value="<?=$edad?>">
+                              <?=$notNumericAgeError ? "La edad debe ser numerica!":""?>
                               <?php else: ?>
-                                <p><?=$usuario->getEdad() ?></p>
+                                <p><?=$edad?></p>
                             <?php endif; ?>
                           </div>
                       </div>
@@ -204,7 +217,7 @@
                           </div>
                           <div class="col-md-6">
                             <?php if ($editar): ?>
-                              <input type="checkbox" name="recordarme" <?=$_COOKIE['remember_username']!=NULL ? "checked":"";?>>
+                              <input type="checkbox" name="recordarme" <?=$_COOKIE['remember_username']!=NULL ? "checked":""?>>
                               <?php else: ?>
                                 <?php if ($_SESSION['recordarme']): ?>
                                   <input type="checkbox" class=" mt-2 mb-3" checked disabled>
@@ -222,7 +235,7 @@
                             <?php if ($editar): ?>
                                 <input type="password" name="password" class="input_editar">
                               <?php else: ?>
-                                <p>&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;</p>
+                                <p><?php for($i = 0; $i < 20; $i++):?>&#8226;<?php endfor;?></p>
                             <?php endif; ?>
                           </div>
                       </div>
@@ -232,13 +245,12 @@
                               <label>Confirmar contraseña</label>
                           </div>
                           <div class="col-md-6">
-                              <input type="password" name="confirm_password" class="input_editar" value="">
-                              <?=(isset($errores["cPaswordEmpty"]) || isset($errores["cPasswordFail"]))?"Las contraseñas no coinciden":""; ?>
+                              <input type="password" name="cPassword" class="input_editar" value="">
+                              <?=(isset($errores["cPasswordFail"]))?"Las contraseñas no coinciden":""?>
                           </div>
                       </div>
                     <?php endif; ?>
                   </div>
-
                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                       <div class="row">
                           <div class="col-md-6">

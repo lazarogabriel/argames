@@ -11,16 +11,16 @@
             $user= "root";
             $pass= "";
 
-            try {
-                $this->com= new PDO($dsn, $user, $pass);
-            } catch (Exception $e) {
-                echo "Database conect error:" . $e->getMessage();
+            try{
+              $this->com= new PDO($dsn, $user, $pass);
+            }catch (Exception $e) {
+              echo "Database conect error:" . $e->getMessage();
             }
         }
 
         public function guardarUsuario(Usuario $usuario){
             $db=$this->com;
-            $query=$db->prepare("insert into usuarios values(default, :name, :email, :username, :password, :genre, :edad, :ext_img)");
+            $query=$db->prepare("insert into usuarios values(default, :name, :username, :email, :password, :genre, :edad, :ext_img)");
             $query->bindValue(":name", $usuario->getName());
             $query->bindValue(":email", $usuario->getEmail());
             $query->bindValue(":username", $usuario->getUsername());
@@ -29,7 +29,7 @@
             $query->bindValue(":password", $usuario->getPassword());
             $query->bindValue(":ext_img", $usuario->getExtencionFoto());
 
-            $id= $db->lastInsertId();
+            $id = $db->lastInsertId();
             $usuario->setId($id);
             try{
                 $query->execute();
@@ -39,6 +39,30 @@
 
             return $usuario;
         }
+
+        public function modificarUsuario(int $id, Usuario $usuario){
+            $db=$this->com;
+            $query=$db->prepare("update usuarios set
+               name = :name,
+               username = :username,
+               email = :email,
+               password = :password,
+               genero = :genero,
+               age = :edad,
+               ext_img = :ext_img
+               where id = :id");
+            $query->bindValue(":name", $usuario->getName());
+            $query->bindValue(":username", $usuario->getUsername());
+            $query->bindValue(":email", $usuario->getEmail());
+            $query->bindValue(":password", $usuario->getPassword());
+            $query->bindValue(":genero", $usuario->getGenre());
+            $query->bindValue(":edad", $usuario->getEdad());
+            $query->bindValue(":ext_img", $usuario->getExtencionFoto());
+            $query->bindValue(":id", $id);
+            $query->execute();
+            return $usuario;
+        }
+
 
         public function traerTodos(){
             $query=$this->com->prepare("SELECT * FROM usuarios");
@@ -64,9 +88,9 @@
             $query=$this->com->prepare("SELECT * FROM usuarios WHERE username=:username");
             $query->bindValue(":username", $userName);
             $query->execute();
-
             $usuario = $query->fetch(PDO::FETCH_ASSOC);
-            return new Usuario($usuario["nombre_apellido"], $usuario["email"], $usuario["username"],$usuario["pass"], $usuario["genre"], $usuario["fech_nac"],$usuario["id"], $usuario["ext_img"]);
+
+            return new Usuario($usuario["name"], $usuario["username"], $usuario["email"], $usuario["password"], $usuario["genero"], $usuario["age"], $usuario["ext_img"], $usuario["id"]);
         }
     }
 

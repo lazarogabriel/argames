@@ -39,18 +39,17 @@ include_once("servicios.php");
 								<footer class="text-white blockquote-footer argames_downtext">this is argames, an argentinian games page</footer>
 						</div>
 					</header>
-
 					<div id="cd-nav" class="font-weight-bold">
 						<a href="#0" class="cd-nav-trigger">Menu<span></span></a>
 						<nav id="cd-main-nav">
 							<ul class="wow bounceInRight">
 								<li ><a href="#cd-logo">INICIO</a></li>
-								<li><a href="FAQ.php">F.A.Qs</a></li>
 								<?php if ($auth->estaLogueado()): ?>
 									<li><a href="perfil.php">PERFIL</a></li>
 									<li> <a href="destroy_session.php">SALIR</a></li>
 								<?php else: ?>
 									<li><a href="formulario_ingreso.php">INGRESAR</a></li>
+									<li><a href="formulario_registro.php">REGISTRARME</a></li>
 								<?php endif; ?>
 							</ul>
 						</nav>

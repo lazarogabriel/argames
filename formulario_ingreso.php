@@ -12,7 +12,6 @@
     $errores = $validador->validarLogin($_POST, $db);
 
     if(!isset($errores["loginUsernameFail"]) && !isset($errores["loginUsernameEmpty"]))$username = $_POST["username"];
-
     if(!isset($errores["loginPasswordEmpty"]) && !isset($errores["loginPasswordFail"]))$password = $_POST["password"];
 
     if(!count($errores)){
@@ -32,39 +31,33 @@
 
    }
 ?>
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta charset="utf-8">
-	<title>ArGames</title>
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="css/bootstrap.css">
-  <link rel="stylesheet" href="css/animate.css">
-  <link rel="stylesheet" href="css/formulario_estilos.css">
-  <script src="js/wow.min.js" type="text/javascript"></script>
-        <script>
-        new WOW().init();
-        </script>
+  	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="utf-8">
+  	<title>ArGames</title>
+  	<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&display=swap" rel="stylesheet">
+  	<link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/formulario_estilos.css">
+    <script src="js/wow.min.js" type="text/javascript"></script>
+          <script>
+          new WOW().init();
+          </script>
 </head>
 <body>
 
 		<div class="container">
-
 			<div class="row align-items-center">
-
 				<div  class="col-xl-4 col-lg-5 col-md-12 wow rubberBand ">
 					<p class="text-center argames">ArGames</p>
 					<footer class="text-lg-left text-sm-center blockquote-footer argames_downtext">this is argames, an argentinian games page</footer>
 				</div>
-
 				<div class="col-xl-4 col-lg-2 col-md-2"></div>
-
       		<div class="col-xl-4 col-lg-5 col-md-10 ">
-
             <form id="contact-stack-form" class="form wow bounceInRight" method="post">
             	<div class="cube-1 w-100 cube">
             		<div class=" front"></div>

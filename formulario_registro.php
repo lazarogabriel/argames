@@ -1,7 +1,7 @@
 <?php
 
   include_once("servicios.php");
-
+  session_start();
   if($auth->estaLogueado()){header("Location:login.php");exit;}
 
   $erorres = [];
@@ -16,33 +16,27 @@ if ($_POST){
   $errores = $validador->validarInformacion($_POST, $db);
 
   if(!isset($errores["usernameShort"]) && !isset($errores["usernameLong"]) && !isset($errores["usernameExist"]))$username= $_POST["username"];
-
   if(!isset($errores["nameShort"]) && !isset($errores["nameLong"]))$name = $_POST["name"];
-
   if(!isset($erorres["emailEmpty"]) && !isset($errores["emailWrong"]) && !isset($errores["emailExist"]))$email=$_POST["email"];
-
   if(!isset($errores["genreEmpty"]))$genre = $_POST["gen"];
-
   if(!isset($errores["cPaswordEmpty"]) && !isset($errores["cPasswordFail"]))$password = md5($_POST["cPassword"]);
-
   if(!isset($errores["emptyAge"]) && !isset($errores["outIntervalAge"]))$edad = $_POST["edad"];
 
   if(!count($errores)){
     $ext = pathinfo($_FILES["imagen"]["name"], PATHINFO_EXTENSION);
-    $usuario = new Usuario($name, $email, $username, $password, $genre, $edad, '' ,$ext);
-
-    $tmp_file = $_FILES["imagen"]["tmp_name"];
-    $directorio_destino = dirname(__FILE__) . "/" . "archivos_subidos/$username." . $ext;
-    move_uploaded_file($tmp_file, $directorio_destino);
+    $usuario = new Usuario($name, $username, $email, $password, $genre, $edad, $ext);
 
     $_SESSION["user_object"] = $db->guardarUsuario($usuario);
+    $tmp_file = $_FILES["imagen"]["tmp_name"];
+    $id = $db->lastInsertId();
+
+    $directorio_destino = dirname(__FILE__) . "/" . "archivos_subidos/" . $id . "." . $ext;
+    move_uploaded_file($tmp_file, $directorio_destino);
+
     header("Location:index.php");exit;
   }
 }
-
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -429,6 +423,7 @@ if ($_POST){
         </div>
         <div class="cube-3 w-100 cube">
         </div>
+
         <!-- RESERVADO PARA VALIDACIONES -->
         <?php if (isset($errores["emptyAge"]) || isset($errores["outIntervalAge"])): ?>
           <div class="cube-31 w-300 cube text-center wow slideInRight">
@@ -443,6 +438,7 @@ if ($_POST){
           </div>
         <?php endif; ?>
         <!-- RESERVADO PARA VALIDACIONES -->
+
         <div class="cube-1 w-100 cube">
           <div class="front"></div>
           <div class="back"></div>
