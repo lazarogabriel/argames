@@ -281,7 +281,7 @@
                               <label>Veces ingresadas</label>
                           </div>
                           <div class="col-md-6">
-                              <p>32</p>
+                              <p><?=$veces_ingresadas ?></p>
                           </div>
                       </div>
                     </div>

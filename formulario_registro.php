@@ -25,12 +25,10 @@ if ($_POST){
   if(!count($errores)){
     $ext = pathinfo($_FILES["imagen"]["name"], PATHINFO_EXTENSION);
     $usuario = new Usuario($name, $username, $email, $password, $genre, $edad, $ext);
-
     $_SESSION["user_object"] = $db->guardarUsuario($usuario);
-    $tmp_file = $_FILES["imagen"]["tmp_name"];
-    $id = $db->lastInsertId();
 
-    $directorio_destino = dirname(__FILE__) . "/" . "archivos_subidos/" . $id . "." . $ext;
+    $tmp_file = $_FILES["imagen"]["tmp_name"];
+    $directorio_destino = dirname(__FILE__) . "/" . "archivos_subidos/" . $_SESSION["user_object"]->getId() . "." . $ext;
     move_uploaded_file($tmp_file, $directorio_destino);
 
     header("Location:index.php");exit;
@@ -582,7 +580,7 @@ if ($_POST){
         </div>
         <div class="cube-5 w-300 cube">
           <div class="front">
-          <input type='password' name='cPassword' id="confirmar" placeholder="Confirmar contraseña" class="field">
+            <input type='password' name='cPassword' id="confirmar" placeholder="Confirmar contraseña" class="field">
           </div>
           <div class="back"></div>
           <div class="top"></div>
@@ -630,14 +628,14 @@ if ($_POST){
           <div class="right"></div>
         </div>
         <div class="cube-33 w-300 cube">
-          <div class="front">
-            <button type="submit" name="submit" value="enviar" id="contact-stack-button" class="button">registrarme</button>
-          </div>
-          <div class="back"></div>
-          <div class="top"></div>
-          <div class="bottom"></div>
-          <div class="left"></div>
-          <div class="right"></div>
+            <div class="front">
+              <button type="submit" name="submit" value="enviar" id="contact-stack-button" class="button">registrarme</button>
+            </div>
+            <div class="back"></div>
+            <div class="top"></div>
+            <div class="bottom"></div>
+            <div class="left"></div>
+            <div class="right"></div>
           </div>
           </form>
         </div>

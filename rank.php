@@ -1,8 +1,13 @@
 <?php
   include("servicios.php");
   session_start();
-  $jugadores = $db->traerTodos();
 
+    if($_POST){
+      $jugador_a_buscar = trim($_POST["buscar"]);
+      $jugadores = $db->traerPorUser($jugador_a_buscar);
+    }else{
+      $jugadores = $db->traerTodos();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -13,7 +18,6 @@
     <link rel="stylesheet" href="/css/rank.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&display=swap" rel="stylesheet">
   	<link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/animate.css">
     <script src="js/modernizr.js"></script>
@@ -21,15 +25,9 @@
           <script>
           new WOW().init();
           </script>
-
-    <script src="js/wow.min.js" type="text/javascript"></script>
-          <script>
-          new WOW().init();
-          </script>
     <title>Ranking</title>
   </head>
   <body>
-
     <div class="container pb-5">
 			<div class="row">
 				<div class="col">
@@ -54,20 +52,21 @@
 							</ul>
 						</nav>
 					</div>
-
 				</div>
 			</div>
 		</div>
 
     <div class="content">
-      <div class="search-bar flex grow">
-        <input class="search flex grow" placeholder="Search"/>
-      </div>
+      <form method="post">
+        <div class="search-bar flex grow">
+          <input type="text" name="buscar" class="search flex grow" placeholder="Buscar una persona"/>
+        </div>
+      </form>
 
-      <div class="leaderboard flex column wrap ">
-        <div class="leaderboard-table flex column ">
+
+      <div class="leaderboard flex column wrap">
+        <div class="leaderboard-table flex column">
           <div class="leaderboard-header flex column grow">
-
               <!-- <div class="filter-by flex grow wrap">
                 <div class="time-filter flex grow">
                   <div class="row-button pointer row-button--active align-center">Today</div>
@@ -86,8 +85,7 @@
                     Teams</div>
                 </div>
               </div> -->
-
-              <div class="leaderboard-row flex align-center row--header" style="border-radius: 0 !important;">
+              <div class="leaderboard-row flex align-center row--header" >
                 <div class="row-position">Posicion</div>
                 <div class="row-collapse flex align-center">
                   <div class="row-user--header">Jugador</div>
@@ -96,27 +94,43 @@
                 <div class="row-calls">Puntos</div>
               </div>
             </div>
-
-        <?php foreach ($jugadores as $jugador): ?>
-          <div class="leaderboard-body flex column grow wow fadeIn">
-            <div class="leaderboard-row flex align-center">
-              <div class="row-position"><?=$jugador["id"]?></div>
-              <div class="row-collapse flex align-center">
-                <div class="row-caller flex">
-                  <img class="avatar" src="<?="archivos_subidos/" . $jugador["id"] . "." . $jugador["ext_img"]?>"/>
-                  <div class="row-user"><?=$jugador["username"]?></div>
+        <div class="leaderboard-body flex column grow wow fadeIn">
+          <?php if($_POST): ?>
+            <?php if ($jugadores): ?>
+              <div class="leaderboard-row flex align-center">
+                <div class="row-position"><?=$jugadores["id"]?></div>
+                <div class="row-collapse flex align-center">
+                  <div class="row-caller flex">
+                    <img class="avatar" src="<?="archivos_subidos/" . $jugadores["id"] . "." . $jugadores["ext_img"]?>"/>
+                    <div class="row-user"><?=$jugadores["username"]?></div>
+                  </div>
+                  <div class="row-team"></div>
+                  <div class="row-rank">Junior</div>
                 </div>
-                <div class="row-team"></div>
-                <div class="row-rank">Junior</div>
+                <div class="row-calls"><?=$jugadores["age"] ?></div>
               </div>
-              <div class="row-calls"><?=$jugador["age"] ?></div>
-            </div>
-        <?php endforeach; ?>
-
-
+              <?php else: ?>
+              <p class="text-warning">NO SE ENCONTRARON RESULTADOS.</p>
+            <?php endif; ?>
+          <?php else: ?>
+            <?php foreach ($jugadores as $jugador): ?>
+                <div class="leaderboard-row flex align-center">
+                  <div class="row-position"><?=$jugador["id"]?></div>
+                  <div class="row-collapse flex align-center">
+                    <div class="row-caller flex">
+                      <img class="avatar" src="<?="archivos_subidos/" . $jugador["id"] . "." . $jugador["ext_img"]?>"/>
+                      <div class="row-user"><?=$jugador["username"]?></div>
+                    </div>
+                    <div class="row-team"></div>
+                    <div class="row-rank">Junior</div>
+                  </div>
+                  <div class="row-calls"><?=$jugador["age"] ?></div>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
           <div class="leaderboard-footer flex align-center">
             <!-- <a class="footer-btn pointer">Next</a> -->
-            Total de jugadores: <?=count($jugadores)?>
+            Total de jugadores: <?=$_POST ? 1 :count($jugadores);?>
           </div>
 
         </div>
@@ -125,11 +139,12 @@
       </div>
 
     </div>
+    <?php include("sections/footer.html"); ?>
+
 
     <script src="js/jquery-2.1.1.js"></script>
 		<script src="js/main.js"></script>
     <script src="js/rank.js"></script>
-    <?php include("sections/footer.html"); ?>
 
   </body>
 </html>

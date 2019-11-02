@@ -20,29 +20,28 @@
 
         public function guardarUsuario(Usuario $usuario){
             $db=$this->com;
-            $query=$db->prepare("insert into usuarios values(default, :name, :username, :email, :password, :genre, :edad, :ext_img)");
-            $query->bindValue(":name", $usuario->getName());
-            $query->bindValue(":email", $usuario->getEmail());
-            $query->bindValue(":username", $usuario->getUsername());
-            $query->bindValue(":edad", $usuario->getEdad());
-            $query->bindValue(":genre", $usuario->getGenre());
-            $query->bindValue(":password", $usuario->getPassword());
-            $query->bindValue(":ext_img", $usuario->getExtencionFoto());
+            $query=$db->prepare("INSERT INTO usuarios VALUES(default, :name, :username, :password, :email, :genero, :edad, :ext_img)");
+            $query->bindValue(":name", $usuario->getName(), PDO::PARAM_STR);
+            $query->bindValue(":username", $usuario->getUsername(), PDO::PARAM_STR);
+            $query->bindValue(":password", $usuario->getPassword(), PDO::PARAM_STR);
+            $query->bindValue(":email", $usuario->getEmail(), PDO::PARAM_STR);
+            $query->bindValue(":genero", $usuario->getGenre(), PDO::PARAM_STR);
+            $query->bindValue(":edad", $usuario->getEdad(), PDO::PARAM_INT);
+            $query->bindValue(":ext_img", $usuario->getExtencionFoto(), PDO::PARAM_STR);
 
-            $id = $db->lastInsertId();
-            $usuario->setId($id);
             try{
                 $query->execute();
             }catch (Exception $e){
                 echo "Database conect error:" . $e->getMessage();
             }
 
+            $usuario->setId($db->lastInsertId());
             return $usuario;
         }
 
         public function modificarUsuario(int $id, Usuario $usuario){
             $db=$this->com;
-            $query=$db->prepare("update usuarios set
+            $query=$db->prepare("UPDATE usuarios SET
                name = :name,
                username = :username,
                email = :email,
@@ -50,19 +49,18 @@
                genero = :genero,
                age = :edad,
                ext_img = :ext_img
-               where id = :id");
-            $query->bindValue(":name", $usuario->getName());
-            $query->bindValue(":username", $usuario->getUsername());
-            $query->bindValue(":email", $usuario->getEmail());
-            $query->bindValue(":password", $usuario->getPassword());
-            $query->bindValue(":genero", $usuario->getGenre());
-            $query->bindValue(":edad", $usuario->getEdad());
-            $query->bindValue(":ext_img", $usuario->getExtencionFoto());
-            $query->bindValue(":id", $id);
+               WHERE id = :id");
+            $query->bindValue(":name", $usuario->getName(), PDO::PARAM_STR);
+            $query->bindValue(":username", $usuario->getUsername(), PDO::PARAM_STR);
+            $query->bindValue(":email", $usuario->getEmail(), PDO::PARAM_STR);
+            $query->bindValue(":password", $usuario->getPassword(), PDO::PARAM_STR);
+            $query->bindValue(":genero", $usuario->getGenre(), PDO::PARAM_STR);
+            $query->bindValue(":edad", $usuario->getEdad(), PDO::PARAM_INT);
+            $query->bindValue(":ext_img", $usuario->getExtencionFoto(), PDO::PARAM_STR);
+            $query->bindValue(":id", $id, PDO::PARAM_INT);
             $query->execute();
             return $usuario;
         }
-
 
         public function traerTodos(){
             $query=$this->com->prepare("SELECT * FROM usuarios");
@@ -70,9 +68,9 @@
             return $query->fetchAll(PDO::FETCH_ASSOC);
         }
 
-        public function traerPorUser($userName){
-            $query=$this->com->prepare("SELECT * FROM usuarios WHERE username=:username");
-            $query->bindValue(":username", $userName);
+        public function traerPorUser($username){
+            $query=$this->com->prepare("SELECT * FROM usuarios WHERE username = :username");
+            $query->bindValue(":username", $username);
             $query->execute();
             return $query->fetch(PDO::FETCH_ASSOC);
         }

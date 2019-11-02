@@ -19,7 +19,6 @@ body {
   justify-content: center;
 }
 
-
 .flex{
   display: flex;
 }
@@ -39,17 +38,15 @@ body {
   font-size: 18px;
   font-family: "soleil", "roboto", sans-serif;
   border: 1px solid #bdbbbb;
-  border-radius: 100px;
+  border-radius: 10px;
 }
 
-.active {
+.active{
   background-color: #eeeeee !important;
   border-left: 1px solid #e2e2e2 !important;
   border-right: 1px solid #e2e2e2 !important;
   border-bottom: 1px solid #e2e2e2 !important;
 }
-
-
 
 .pointer{
   cursor: pointer;
@@ -87,13 +84,12 @@ body {
 }
 
 .leaderboard {
-  padding: 40px 10vw;
+  padding: 43px 10vw;
 }
-
-.leaderboard-header{
-  border-radius: 1000px;
-  background-color: transparente;
-  border-radius: 4px 4px 0 0;
+.leaderboard-table{
+  font-weight: bold;
+  box-shadow: 0 0 5px 5px #060606;
+  border-radius: 20px;
 }
 
 .footer-btn{
@@ -106,20 +102,17 @@ body {
 }
 
 .leaderboard-footer{
-  border-radius: 1000px;
+  border-radius: 0 0 15px 15px;
   padding: 20px 3vw;
-  background-color: #1d2c38;
-  color: #FFF;
+  background-color:#2b4254;
+  color: #ffc107;
 }
 
 .leaderboard-row{
-  border-radius: 1000px;
-
   flex-grow: 1;
   justify-content: space-between;
   background-color: #FFFFFF;
   padding: 10px 3vw;
-  margin-bottom: 10px;
   border-left: 1px solid #CCC;
   border-right: 1px solid #CCC;
 }
@@ -134,7 +127,7 @@ body {
 }
 
 .row-user--header{
-  border-radius: 1000px;
+  border-radius: 10px;
   background-color: transparente;
   width: 275px;
 }
@@ -149,19 +142,8 @@ body {
   text-align: right;
 }
 
-.leaderboard-header > .leaderboard-row:first-of-type {
-  border-radius: 4px 4px 0 0 !important;
-}
-
-.leaderboard-header > .leaderboard-row{
-  border: none;
-  border-radius: 100%;
-  background-color: #1d2c38;
-  color: #FFFFFF;
-}
-
-.leaderboard-row:last-of-type {
-  border-radius: 0 0 4px 4px;
+.leaderboard-header{
+  border-radius: 0px;
 }
 
 .align-center{
@@ -227,8 +209,10 @@ body {
 }
 
 .row--header{
-  border-radius: 1000px;
-  background-color: transparente;
+  border: none;
+  background-color: #2b4254;
+  color: #ffc107;
+  border-radius: 15px 15px 0 0;
   padding: 20px 3vw;
 }
 
@@ -286,7 +270,7 @@ body {
   width: 100%;
 }
 
-@media (max-width: 1050px) {
+@media (max-width: 610px) {
   .row-rank--header,
   .row-team--header{
     display: none;
