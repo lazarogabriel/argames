@@ -258,7 +258,7 @@
 				</div>
 				<div class="col-lg-2 col-md-3  col-sm-12 copyrighy_footer justify-content-between d-flex">
 					<a style="border:1.1px solid yellow; letter-spacing:0.2em;" class="m-1 p-1 btn btn-yellow faqbutton" href="index.php" role="button">JUGAR</a>
-					<a style="border:1.1px solid yellow;" class="m-1 p-1 btn btn-yellow faqbutton" href="FAQ.php" role="button">F.A.Qs</a>
+					<a style="border:1.1px solid yellow;" class="m-1 p-1 btn btn-yellow faqbutton" href="faqs.php" role="button">F.A.Qs</a>
 				</div>
 			</div>
 		</div>

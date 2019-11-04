@@ -44,8 +44,8 @@
 								<li><a href="perfil.php">PERFIL</a></li>
 								<li><a href="destroy_session.php">SALIR</a></li>
 							<?php else: ?>
-								<li><a href="formulario_ingreso.php">INGRESAR</a></li>
-								<li><a href="formulario_registro.php">REGISTRARME</a></li>
+								<li><a href="login.php">INGRESAR</a></li>
+								<li><a href="register.php">REGISTRARME</a></li>
 							<?php endif; ?>
 						</ul>
 					</nav>
@@ -86,7 +86,7 @@
 					    <svg class="control-icon control-icon-close" width="24" height="24" role="presentation"></svg>
 					  </summary>
 					  <p class="pt-3">
-							Para registrarte solo tenes que ingresar <a href="formulario_registro.php">ACA</a>, completar todos los campos y listo, ya podes empezar a jugar a través de la página.
+							Para registrarte solo tenes que ingresar <a href="register.php">ACA</a>, completar todos los campos y listo, ya podes empezar a jugar a través de la página.
 						</p>
 					</details>
 
@@ -98,7 +98,7 @@
 					    <svg class="control-icon control-icon-close" width="24" height="24" role="presentation"></svg>
 					  </summary>
 					  <p class="pt-3">
-							Para poder comenzar a jugar a través de la página tienen que iniciar sesión con un usuario previamente registrado, podes hacerlo debes ingresando <a href="formulario_registro.php">ACA</a> y completar los campos correspondientes y listo!
+							Para poder comenzar a jugar a través de la página tienen que iniciar sesión con un usuario previamente registrado, podes hacerlo debes ingresando <a href="register.php">ACA</a> y completar los campos correspondientes y listo!
 						</p>
 					</details>
 
@@ -109,7 +109,7 @@
 					    <svg class="control-icon control-icon-close" width="24" height="24" role="presentation"></svg>
 					  </summary>
 					  <p class="pt-3">
-							Aun no contamos con sistema de recuperado de cuentas, ingresa <a href="formulario_registro.php">ACA</a> y registrate nuevamente, proximamente lo implementaremos...
+							Aun no contamos con sistema de recuperado de cuentas, ingresa <a href="register.php">ACA</a> y registrate nuevamente, proximamente lo implementaremos...
 						</p>
 					</details>
 

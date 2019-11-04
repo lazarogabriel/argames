@@ -18,7 +18,6 @@
       $auth->loguear($username);
       $_SESSION["user_object"] = $db->traerUser($username);
       if($_POST['recordarme'] == "on"){
-         $_SESSION['recordarme'] = true;
          setcookie('remember_username', $username, time()+(10 * 365 * 24 * 60 * 60));
          setcookie('remember_password', $password, time()+(10 * 365 * 24 * 60 * 60));
        }else{
@@ -265,7 +264,7 @@
 
               <div class=" cube-10 w-100 cube font-weight-bold">
                 <div class=" front">
-                  <a href="formulario_registro.php">
+                  <a href="register.php">
                     <button id="contact-stack-button" style="background-color:grey; color:white; font-size:1em;" type="button" class=" button">REGISTRO</button>
                   </a>
               </div>
@@ -274,7 +273,7 @@
                 <div class=" bottom"></div>
                 <div class=" left"></div>
                 <div class=" right">
-                  <a href="formulario_registro.php"><button id="contact-stack-button" style="background-color:grey; color:white; font-size:1.5em;" type="button" class=" button">REGISTRO</button></a>
+                  <a href="register.php"><button id="contact-stack-button" style="background-color:grey; color:white; font-size:1.5em;" type="button" class=" button">REGISTRO</button></a>
                 </div>
               </div>
             	<div class=" cube-1 w-100 cube">

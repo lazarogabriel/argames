@@ -1,10 +1,6 @@
 <?php
 include_once("servicios.php");
-
 	session_start();
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en" class="no-js">
@@ -21,8 +17,6 @@ include_once("servicios.php");
 	        <script>
 	        new WOW().init();
 	        </script>
-
-
 		<title>Inicio</title>
 	</head>
 	<body class="wow fadeIn">
@@ -48,8 +42,8 @@ include_once("servicios.php");
 									<li><a href="perfil.php">PERFIL</a></li>
 									<li> <a href="destroy_session.php">SALIR</a></li>
 								<?php else: ?>
-									<li><a href="formulario_ingreso.php">INGRESAR</a></li>
-									<li><a href="formulario_registro.php">REGISTRARME</a></li>
+									<li><a href="login.php">INGRESAR</a></li>
+									<li><a href="register.php">REGISTRARME</a></li>
 								<?php endif; ?>
 							</ul>
 						</nav>
@@ -61,7 +55,6 @@ include_once("servicios.php");
 
 		<main>
 			<ul id="cd-gallery-items" class="cd-container ">
-
 				<a href="juegos/pacman/index.html" class="anchor_img_game">
 					<li class="wow pulse " style="background-image:url('imagenes/pacman_imagen_edit.webp');">
 						<div class="container-games">
@@ -77,7 +70,6 @@ include_once("servicios.php");
 				</a>
 				<a href="juegos/truco/index.html" class="anchor_img_game" >
 					<li class="wow pulse" style="background-image:url('imagenes/truco_imagen_edit.jpg'); ">
-
 						<div class="container-games">
 							<img src="imagenes/transparente.png" alt="Avatar" class="image">
 								<div class="overlay container-fluid">
@@ -105,7 +97,6 @@ include_once("servicios.php");
 
 			<a href="juegos/ajedrez/example.html" class=" anchor_img_game">
 				<li class="wow pulse" style="background-image:url('imagenes/ajedrez_imagen_edit.jpg'); ">
-
 					<div class="container-games">
 						<img src="imagenes/transparente.png" alt="Avatar" class="image">
 							<div class="overlay container-fluid">
@@ -118,7 +109,6 @@ include_once("servicios.php");
 			</a>
 			<a href="juegos/damas/index.html" class=" anchor_img_game">
 				<li class="wow pulse" style="background-image:url('imagenes/damas.jpg'); ">
-
 					<div class="container-games">
 						<img src="imagenes/transparente.png" alt="Avatar" class="image">
 							<div class="overlay container-fluid">
@@ -126,16 +116,13 @@ include_once("servicios.php");
 									<div class="col-12 font-weight-bold text-1">DAMAS</div>
 									<div class="col-12 text-2">Comer o se comido</div>
 								</div>
-
 							</div>
-
 				</li>
 			</a>
 
 			</div>
 			<a href="juegos/tateti_multi/tateti.html" class=" anchor_img_game">
 				<li class="wow pulse" style="background-image:url('imagenes/tateti.jpg'); ">
-
 					<div class="container-games">
 						<img src="imagenes/transparente.png" alt="Avatar" class="image">
 							<div class="overlay container-fluid">
@@ -144,7 +131,6 @@ include_once("servicios.php");
 									<div class="col-12 text-2">Suerte para mi</div>
 								</div>
 							</div>
-
 				</li>
 			</a>
 

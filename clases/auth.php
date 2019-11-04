@@ -8,11 +8,11 @@
             if(!isset($_SESSION["logueado"]) && isset($COOKIE["logueado"]))$_SESSION["logueado"] = $COOKIE["logueado"];
         }
 
-        public function loguear($userName){ $_SESSION["logueado"] = $userName; }
+        public function loguear(string $userName){ $_SESSION["logueado"] = $userName; }
 
         public function estaLogueado(){ return isset($_SESSION["logueado"]); }
 
-        public function rememberMe($userName){setcookie("logueado", $userName, time() + 3600 * 2);}
+        public function rememberMe(string $userName){setcookie("logueado", $userName, time() + 3600 * 2);}
 
         public function usuarioLogueado(){
             if(!estaLogueado())return NULL;

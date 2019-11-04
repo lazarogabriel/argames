@@ -12,6 +12,7 @@
   $email = $usuario->getEmail();
   $edad = $usuario->getEdad();
   $genre = $usuario->getGenre();
+  $password = $usuario->getPassword();
 
   $editar = (isset($_POST['editar_perfil']) && !empty($_POST['editar_perfil']))? true:false;
   $aceptarEditar = (isset($_POST['aceptar_edicion']) && !empty($_POST['aceptar_edicion']))? true:false;
@@ -29,7 +30,7 @@
     if(!isset($errores["usernameShort"]) && !isset($errores["usernameLong"]) && !isset($errores["usernameExist"]))$username= $_POST["username"];
     if(!isset($errores["nameShort"]) || !isset($errores["nameLong"]))$name = $_POST["name"];
     if(!isset($erorres["emailEmpty"]) && !isset($errores["emailWrong"]) || !isset($errores["emailExist"]))$email=$_POST["email"];
-    if(!isset($errores["cPasswordFail"]))$password = md5($_POST["password"]);
+    if(!isset($errores["cPasswordFail"]) && $_POST["password"]!="")$password = md5($_POST["password"]);
     if(!isset($errores["emptyAge"]) && !isset($errores["outIntervalAge"]))$edad = $_POST["edad"];
     if(!isset($errores["genreEmpty"]))$genre = $_POST["gen"];
 
@@ -99,7 +100,7 @@
       </div>
     </div>
 
-  <div class="container emp-profile mt-md-0 wow flipInY">
+  <div class="container emp-profile mt-md-0 wow zoomInRight">
 
       <form method="post" enctype="multipart/form-data">
           <div class="row">
@@ -216,14 +217,10 @@
                               <label>Recordarme</label>
                           </div>
                           <div class="col-md-6">
-                            <?php if ($editar): ?>
-                              <input type="checkbox" name="recordarme" <?=$_COOKIE['remember_username']!=NULL ? "checked":""?>>
+                            <?php if ($_COOKIE["remember_username"]): ?>
+                              <input type="checkbox" class="mt-2 mb-3" checked disabled>
                               <?php else: ?>
-                                <?php if ($_SESSION['recordarme']): ?>
-                                  <input type="checkbox" class=" mt-2 mb-3" checked disabled>
-                                  <?php else: ?>
-                                    <input type="checkbox" disabled>
-                                <?php endif; ?>
+                                <input type="checkbox" disabled>
                             <?php endif; ?>
                           </div>
                       </div>
@@ -235,7 +232,7 @@
                             <?php if ($editar): ?>
                                 <input type="password" name="password" class="input_editar">
                               <?php else: ?>
-                                <p><?php for($i = 0; $i < 20; $i++):?>&#8226;<?php endfor;?></p>
+                                <p><?php for($i = 0; $i < 15; $i++):?>&#8226;<?php endfor;?></p>
                             <?php endif; ?>
                           </div>
                       </div>
@@ -281,7 +278,7 @@
                               <label>Veces ingresadas</label>
                           </div>
                           <div class="col-md-6">
-                              <p><?=$veces_ingresadas ?></p>
+                              <p>21</p>
                           </div>
                       </div>
                     </div>

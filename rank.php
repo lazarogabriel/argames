@@ -28,26 +28,26 @@
     <title>Ranking</title>
   </head>
   <body>
-    <div class="container pb-5">
+    <div class="container pb-2">
 			<div class="row">
 				<div class="col">
-					<header class="wow bounceInLeft">
+					<header class="wow fadeIn">
  						<div id="cd-logo" class="">
 								<p class="text-center argames">RANK</p>
-								<div class="text-white blockquote-footer argames_downtext">ranking of best of the best</div>
+								<div class="text-white blockquote-footer argames_downtext">ranking best of the best of the betters</div>
 						</div>
 					</header>
 					<div id="cd-nav" class="font-weight-bold">
 						<a href="#0" class="cd-nav-trigger">Menu<span></span></a>
 						<nav id="cd-main-nav">
-							<ul class="wow bounceInRight">
-								<li ><a href="#cd-logo">INICIO</a></li>
+							<ul class="wow fadeIn">
+								<li ><a href="index.php">INICIO</a></li>
 								<?php if ($auth->estaLogueado()): ?>
 									<li><a href="perfil.php">PERFIL</a></li>
 									<li> <a href="destroy_session.php">SALIR</a></li>
 								<?php else: ?>
-									<li><a href="formulario_ingreso.php">INGRESAR</a></li>
-									<li><a href="formulario_registro.php">REGISTRARME</a></li>
+									<li><a href="login.php">INGRESAR</a></li>
+									<li><a href="register.php">REGISTRARME</a></li>
 								<?php endif; ?>
 							</ul>
 						</nav>
@@ -57,64 +57,47 @@
 		</div>
 
     <div class="content">
+
       <form method="post">
         <div class="search-bar flex grow">
           <input type="text" name="buscar" class="search flex grow" placeholder="Buscar una persona"/>
         </div>
       </form>
 
-
-      <div class="leaderboard flex column wrap">
+      <div class="leaderboard flex column wrap  wow jello">
         <div class="leaderboard-table flex column">
           <div class="leaderboard-header flex column grow">
-              <!-- <div class="filter-by flex grow wrap">
-                <div class="time-filter flex grow">
-                  <div class="row-button pointer row-button--active align-center">Today</div>
-                  <div class="row-button pointer align-center">This week</div>
-                  <div class="row-button pointer align-center">All-time</div>
-                </div>
-                <div class="subject-filter flex grow">
-                  <div class="table-tab pointer flex grow justify-center align-center tab-active">
-                    <svg class="menu-link-icon" fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                    </svg>
-                    Users</div>
-                  <div class="table-tab pointer flex grow justify-center align-center"> <svg class="menu-link-icon" fill="#4a4a4a" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
-                    </svg>
-                    Teams</div>
-                </div>
-              </div> -->
-              <div class="leaderboard-row flex align-center row--header" >
-                <div class="row-position">Posicion</div>
-                <div class="row-collapse flex align-center">
-                  <div class="row-user--header">Jugador</div>
+              <div class="leaderboard-row flex align-center row--header">
+                 <div class="row-position pl-2">Puesto</div>
+                  <div class="row-user--header pl-5">Jugador</div>
                   <div class="row-rank--header">Rank</div>
-                </div>
-                <div class="row-calls">Puntos</div>
+                  <div class="row-points--header ml-3 pl-5">Puntos</div>
+                  <div class="row-calls"></div>
               </div>
             </div>
-        <div class="leaderboard-body flex column grow wow fadeIn">
+        <div class="leaderboard-body flex column grow">
           <?php if($_POST): ?>
             <?php if ($jugadores): ?>
-              <div class="leaderboard-row flex align-center">
+              <div class="leaderboard-row flex align-center" style="background-color:#1E3344;">
                 <div class="row-position"><?=$jugadores["id"]?></div>
-                <div class="row-collapse flex align-center">
+                <div class="row-collapse flex align-center ">
                   <div class="row-caller flex">
                     <img class="avatar" src="<?="archivos_subidos/" . $jugadores["id"] . "." . $jugadores["ext_img"]?>"/>
                     <div class="row-user"><?=$jugadores["username"]?></div>
                   </div>
-                  <div class="row-team"></div>
                   <div class="row-rank">Junior</div>
                 </div>
                 <div class="row-calls"><?=$jugadores["age"] ?></div>
               </div>
-              <?php else: ?>
-              <p class="text-warning">NO SE ENCONTRARON RESULTADOS.</p>
+            <?php else: ?>
+              <div class="p-3">
+                <p class="text-warning">   NO SE ENCONTRARON RESULTADOS.</p>
+              </div>
             <?php endif; ?>
+
           <?php else: ?>
-            <?php foreach ($jugadores as $jugador): ?>
-                <div class="leaderboard-row flex align-center">
+            <?php foreach ($jugadores as $i => $jugador): ?>
+                <div class="leaderboard-row flex align-center" style="background-color:<?=($i % 2)? "#213B4C": "#1E3344"?>;">
                   <div class="row-position"><?=$jugador["id"]?></div>
                   <div class="row-collapse flex align-center">
                     <div class="row-caller flex">
