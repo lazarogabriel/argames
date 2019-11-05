@@ -41,7 +41,15 @@
    <body>
 
 
-     <div class="container  py-5 my-5 wow fadeIn">
+     <div class="container wow fadeIn">
+       <div class="d-flex justify-content-between bd-highlight mb-3">
+           <div class="p-2 bd-highlight">
+             <a class="btn btn-secondary" href="index.php" role="button">Volver</a>
+           </div>
+           <div class="p-2 bd-highlight">
+             <a class="btn btn-secondary" href="destroy_session.php" role="button">Salir</a>
+           </div>
+      </div>
 
        <div class="row main-card my-5 mx-1 p-3">
 

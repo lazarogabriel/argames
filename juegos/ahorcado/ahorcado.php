@@ -53,10 +53,21 @@
   </head>
   <body>
 
+
 <?php if (strcmp(implode($_SESSION["palabra_a_llenar"]),implode($_SESSION["vector_palabra"])) != 0): ?>
 
     <?php if($_SESSION["oportunidades"]>0): ?>
-      <div class="container py-5 my-5">
+      <div class="container">
+
+        <div class="d-flex justify-content-between bd-highlight mb-3">
+            <div class="p-2 bd-highlight">
+              <a class="btn btn-secondary" href="index.php" role="button">Volver</a>
+            </div>
+            <div class="p-2 bd-highlight">
+              <a class="btn btn-secondary" href="destroy_session.php" role="button">Salir</a>
+            </div>
+       </div>
+
         <div class="row main-card my-5 mx-1 p-3">
 
           <div class="col-sm-12 text-center">

@@ -82,7 +82,7 @@
           <header class="wow bounceInLeft">
             <div id="cd-logo" class="">
                 <p class="text-center argames">ArGames</p>
-                <footer class="text-white blockquote-footer argames_downtext">this is argames, an argentinian games page </footer>
+                <footer class="text-white blockquote-footer argames_downtext">this is argames, an argentinian games site</footer>
             </div>
           </header>
 
