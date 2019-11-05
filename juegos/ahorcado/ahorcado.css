@@ -1,0 +1,23 @@
+.main-card{
+  box-shadow: 0 0 40px -10px #060606;
+  border-radius: 10px;
+  background-color: #2C465B;
+}
+
+.input{
+  text-align:center;
+  border: 0;
+  padding: 8px 20px;
+  font-family: "soleil", "roboto", sans-serif;
+  border-radius: 10px;
+}
+input:focus{
+  outline:none;
+  border-radius: 10px;
+  box-shadow: 0 0 0 1.8pt grey;
+  transition: 0.5s;
+}
+
+h1{
+  text-shadow: 5px 1px #445868;
+}

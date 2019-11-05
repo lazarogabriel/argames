@@ -31,7 +31,7 @@ if ($_POST){
     $directorio_destino = dirname(__FILE__) . "/" . "archivos_subidos/" . $_SESSION["user_object"]->getId() . "." . $ext;
     move_uploaded_file($tmp_file, $directorio_destino);
 
-    header("Location:index.php");exit;
+    header("Location:login.php");exit;
   }
 }
 ?>

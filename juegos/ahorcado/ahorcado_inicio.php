@@ -1,6 +1,6 @@
 <?php
   if(isset($_POST["enviar"])) {
-    if(isset($_POST['palabra']) ){
+    if(isset($_POST['palabra'])){
       if(ctype_alpha($_POST["palabra"]) && strlen($_POST["palabra"]) > 3 && strlen($_POST["palabra"]) < 25 ){
         session_start();
 
@@ -26,26 +26,52 @@
  <html lang="en" dir="ltr">
    <head>
      <meta charset="utf-8">
+     <link rel="stylesheet" href="ahorcado.css">
+     <link rel="stylesheet" href="../../css/bootstrap.css">
+     <link rel="stylesheet" href="../../css/animate.css">
+     <link rel="stylesheet" href="../../css/index.css">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="../../js/modernizr.js"></script>
+    <script src="../../js/wow.min.js" type="text/javascript"></script>
+          <script>
+          new WOW().init();
+          </script>
      <title>AHORCADO</title>
    </head>
    <body>
-     <header>
-       <div class="">
-          <h1 style="text-align:center;">Ahorcado</h1>
-       </div>
 
-         <div class="" style="text-align:center;">
-           <form class="" action="" method="post">
-            <label for="Palabra">Ingrese la palabra</label><br>
-            <input type="password" name="palabra"><br><br>
-            <?php if ($error_palabra): ?>
-              La palabra debe ser de caracter sencillo y de entre 3 y 25 caracteres. <br><br>
-            <?php endif; ?>
-            <input type="submit" name="enviar" value="Ingresar"><br>
 
-           </form>
+     <div class="container  py-5 my-5 wow fadeIn">
+
+       <div class="row main-card my-5 mx-1 p-3">
+
+         <div class="col-sm-12 text-center">
+           <h1 class="text-white font-weight-bold">AHORCADO</h1>
          </div>
-         
-     </header>
+
+         <div class="col-sm-12 text-center py-4">
+             <div class="">
+                 <form class="" action="" method="post">
+                  <label for="Palabra" class="text-secondary">Ingrese una palabra</label><br>
+                  <input type="password" name="palabra" class="input" placeholder="Palabra"><br><br>
+                  <?php if ($error_palabra): ?>
+                    <div class="alert alert-danger" role="alert">
+                        La palabra debe ser de caracter sencillo y de entre 3 y 25 caracteres.
+                    </div>
+                  <?php endif; ?>
+                  <button type="submit" name="enviar" class="btn btn-secondary">JUGAR</button>
+                 </form>
+             </div>
+          </div>
+
+      </div>
+
+    </div>
+
+
+     <?php include("../../sections/footer.html") ?>
+
+     <script src="../../js/jquery-2.1.1.js"></script>
+     <script src="../../js/main.js"></script>
    </body>
  </html>
