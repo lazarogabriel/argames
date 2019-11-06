@@ -72,6 +72,7 @@
             <tr>
               <th></th>
               <th>Usuario</th>
+              <th class="d-none d-md-block">Rank</th>
               <th>Puntos</th>
             </tr>
           </thead>
@@ -81,8 +82,21 @@
                   <tr>
                     <td width="8%"><?=$jugador["id"] ?></td>
                     <td>
-                      <img src="archivos_subidos/<?=$jugador["id"].".".$jugador["ext_img"]?>" alt=""><?=$jugador["username"] ?>
+                      <div class="container">
+                        <div class="row">
+                          <div class="d-flex">
+                            <div class=" col-md-8 col-lg-8 pl-0 pr-0">
+                              <img src="archivos_subidos/<?=$jugador["id"].".".$jugador["ext_img"]?>" alt="">
+                            </div>
+                            <div class="col-md-4 col-lg-4 pr-0 pl-0">
+                                <span class="username"><?=$jugador["username"] ?></span> <br>
+                                <small class="d-sm-block d-md-none">Junior</small>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </td>
+                    <td class="d-sm-none d-md-block">Junior</td>
                     <td width="8%" class="text-center"><?=$jugador["age"] ?></td>
                   </tr>
               <?php endif; ?>
@@ -91,21 +105,35 @@
               <tbody>
               <?php foreach ($jugadores as $i => $jugador): ?>
                 <tr>
-                  <td width="8%"><?=$jugador["id"] ?></td>
+                  <td width="8%" class="text-center"><?=$jugador["id"] ?></td>
                   <td>
-                    <img src="archivos_subidos/<?=$jugador["id"].".".$jugador["ext_img"]?>" alt=""> <?=$jugador["username"] ?>
+                    <div class="container">
+                      <div class="row">
+
+                        <div class="d-flex">
+                          <div class=" col-md-8 col-lg-8 pl-0 pr-0">
+                            <img src="archivos_subidos/<?=$jugador["id"].".".$jugador["ext_img"]?>" alt="">
+                          </div>
+
+                          <div class="col-md-4 col-lg-4 pr-0 pl-0">
+                              <span class="username"><?=$jugador["username"] ?></span> <br>
+                              <small class="d-sm-block d-md-none">Junior</small>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
                   </td>
+                  <td class="d-none d-md-block">Junior</td>
                   <td width="8%" class="text-center"><?=$jugador["age"] ?></td>
                 </tr>
               <?php endforeach; ?>
           <?php endif; ?>
-          <tr>
+            <tr>
             <?php if ($jugador): ?>
-              <td colspan="3">Total de jugadores: <?=$_POST ? 1 :count($jugadores)?></td>
+              <td colspan="4">Total de jugadores: <?=$_POST ? 1 :count($jugadores)?></td>
             <?php else: ?>
-               <td colspan="3"><span class="text-warning">NO SE ECONTRARON RESULTADOS.</span></td>
-
-
+               <td colspan="4"><span class="text-warning">NO SE ECONTRARON RESULTADOS.</span></td>
             <?php endif; ?>
           </tr>
           </tbody>

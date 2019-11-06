@@ -68,28 +68,6 @@ body {
     }
 
 
-    /* background-image: url("imagenes/ahorcado_fondo1.png"); */
-  }
-
-
-
-  /* TAJETAS DE REDIRECCION A LOS JUEGOS */
-
-
-/* #cd-main-nav a {
-
-  color:#efbf3a;
-  text-decoration: none;
-}
-#cd-main-nav ul li a:hover{
-  transition: 0.8s;
-  color:white;
-  border-radius:2px;
-  border:1px solid yellow;
-  text-decoration: none;
-} */
-
-
 img {
 
 }
@@ -100,23 +78,12 @@ img {
   color:white;
   text-shadow:5px 5px #32536e;
 }
-/* .argames_downtext{
-pad
-} */
-
-/* --------------------------------
-
-Modules - reusable parts of our design
-
--------------------------------- */
 .cd-container {
-  /* this class is used to give a max-width to the element it is applied to, and center it horizontally when it reaches that max-width */
   width: 84%;
   max-width: 1170px;
   margin: 0 auto;
 }
 .cd-container::after {
-  /* clearfix */
   content: '';
   display: table;
   clear: both;
@@ -166,11 +133,6 @@ Modules - reusable parts of our design
     }
 
 
-/* --------------------------------
-
-Main components
-
--------------------------------- */
 header {
   position: relative;
   height: 150px;
@@ -232,7 +194,6 @@ header #cd-logo {
 }
 
 #cd-nav ul {
-  /* mobile first */
   position: fixed;
   width: 90%;
   max-width: 400px;
@@ -242,10 +203,8 @@ header #cd-logo {
   box-shadow:  7px 7px #3c5567;
   background: white;
   visibility: hidden;
-  /* remove overflow:hidden if you want to create a drop-down menu - but then remember to fix/eliminate the list items animation */
   overflow: hidden;
   z-index: 1;
-  /* Force Hardware Acceleration in WebKit */
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   -webkit-transform: scale(0);
@@ -263,7 +222,6 @@ header #cd-logo {
   transition: transform 0.3s, visibility 0s 0.3s;
 }
 #cd-nav ul li {
-  /* Force Hardware Acceleration in WebKit */
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
@@ -279,7 +237,6 @@ header #cd-logo {
   transition: transform 0.3s, visibility 0s 0s;
 }
 #cd-nav ul.is-visible li:nth-child(1) {
-  /* list items animation */
   -webkit-animation: cd-slide-in 0.2s;
   -moz-animation: cd-slide-in 0.2s;
   animation: cd-slide-in 0.2s;
@@ -305,7 +262,7 @@ header #cd-logo {
   animation: cd-slide-in 0.6s;
 }
  #cd-nav li a {
-  background-color: #1d2c38;        /*   askdmasldnsadasdlaksmdlamdkasmdlmasdlmasldmaskldmlaskmdlkasmldkmasdk */
+  background-color: #1d2c38;
   color: #efbf3a;
   display: block;
   padding: 1.6em;
@@ -423,14 +380,13 @@ header #cd-logo {
 
 .cd-nav-trigger {
   position: fixed;
-  bottom: 20px;
+  bottom:90%;
   right: 5%;
   width: 44px;
   height: 44px;
   background: #1d2c38;
   border-radius: 10px;
   box-shadow:  6px 6px  #334e63;
-  /* image replacement */
   overflow: hidden;
   text-indent: 100%;
   white-space: nowrap;

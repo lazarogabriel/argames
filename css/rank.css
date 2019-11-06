@@ -8,7 +8,6 @@
   border-radius: 10px;
 }
 .table{
-
   border: none;
   box-shadow: 0 0 40px -10px #060606;
   border-radius: 10px;
@@ -25,7 +24,9 @@
 .table th, .table td{
   vertical-align: baseline;
 }
-
+.username{
+   vertical-align: -webkit-baseline-middle;
+}
 .table-dark th, .table-dark td, .table-dark thead th{
   border: none;
 }
@@ -34,7 +35,7 @@
 }
 
 table thead tr th:first-child::after{
-  content: "id";
+  content: "Puesto";
 }
 
 @media only screen and (max-width: 768px) {
@@ -44,4 +45,10 @@ table thead tr th:first-child::after{
   table thead tr th:first-child::after{
     content: "#";
   }
+
+  small{
+
+  }
+
+
 }
