@@ -46,9 +46,4 @@ table thead tr th:first-child::after{
     content: "#";
   }
 
-  small{
-
-  }
-
-
 }

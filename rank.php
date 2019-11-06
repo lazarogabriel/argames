@@ -14,14 +14,13 @@
  <html lang="en" dir="ltr">
    <head>
      <meta name="viewport" content="width=device-width, initial-scale=1">
-
      <meta charset="utf-8">
      <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&display=swap" rel="stylesheet">
-   	<link rel="stylesheet" href="css/bootstrap.css">
+     <link rel="stylesheet" href="css/reset.css">
+     <link rel="stylesheet" href="css/bootstrap.css">
      <link rel="stylesheet" href="css/index.css">
      <link rel="stylesheet" href="css/animate.css">
      <link rel="stylesheet" href="/css/rank.css">
-
      <script src="js/modernizr.js"></script>
      <script src="js/wow.min.js" type="text/javascript"></script>
            <script>
@@ -148,9 +147,8 @@
      <?php include("sections/footer.html"); ?>
 
 
-     <script src="js/jquery-2.1.1.js"></script>
+    <script src="js/jquery-2.1.1.js"></script>
  		<script src="js/main.js"></script>
-    <script src="js/rank.js"></script>
 
    </body>
  </html>

@@ -1,8 +1,4 @@
-/* --------------------------------
 
-Primary style
-
--------------------------------- */
 html * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -24,7 +20,7 @@ body {
   .welcome_card{
 
   }
-  /* SCROLL BAR */
+
 
   ::-webkit-scrollbar {
       width: 5px;
@@ -46,7 +42,6 @@ body {
   /* SCROLL BAR */
 
 
-  /* TAJETAS DE REDIRECCION A LOS JUEGOS */
   html body main #cd-gallery-items a{
     background: rgba(250, 255, 0, 0.48);
     color:white;
