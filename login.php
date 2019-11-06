@@ -312,9 +312,7 @@
     	</div>
     </div>
 
-
-
-    <div class=" destroy_button" ><a href="pagina_boton_secreto.html">SECRET</a></div>
-
+    <script src="js/jquery-2.1.1.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>

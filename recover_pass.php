@@ -251,17 +251,7 @@
     	</div>
     </div> <!-- CIERRE DE CONTAINER PRINCIPAL-->
 
-		<div class="container">
-			<div class="row mb-3 align-items-center wow fadeInUp">
-				<div class="col-lg-10 col-md-9 col-sm-12 text-white">
-				 <p class="text-md-left text-center">© <script>document.write(new Date().getFullYear());</script> Todos los derechos reservados. Hecho por <a href="#" class=" text-warning" target="_blank"><span class=" font-weight-bold argames_link">ArGames</span></a></p>
-				</div>
-				<div class="col-lg-2 col-md-3  col-sm-12 copyrighy_footer justify-content-between d-flex">
-					<a style="border:1.1px solid yellow; letter-spacing:0.2em;" class="m-1 p-1 btn btn-yellow faqbutton" href="index.php" role="button">JUGAR</a>
-					<a style="border:1.1px solid yellow;" class="m-1 p-1 btn btn-yellow faqbutton" href="faqs.php" role="button">F.A.Qs</a>
-				</div>
-			</div>
-		</div>
+		<?php include("sections/footer.html") ?>
 
 
 

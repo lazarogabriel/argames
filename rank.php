@@ -110,11 +110,11 @@
                       <div class="row">
 
                         <div class="d-flex">
-                          <div class=" col-md-8 col-lg-8 pl-0 pr-0">
+                          <div class=" pl-0 pr-0">
                             <img src="archivos_subidos/<?=$jugador["id"].".".$jugador["ext_img"]?>" alt="">
                           </div>
 
-                          <div class="col-md-4 col-lg-4 pr-0 pl-0">
+                          <div class=" pr-0 pl-0">
                               <span class="username"><?=$jugador["username"] ?></span> <br>
                               <small class="d-sm-block d-md-none">Junior</small>
                           </div>

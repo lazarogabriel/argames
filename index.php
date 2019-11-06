@@ -27,7 +27,7 @@ include_once("servicios.php");
 		<div class="container pb-5">
 			<div class="row">
 				<div class="col">
-					<header class="wow bounceInLeft">
+					<header class="wow fadeIn">
  						<div id="cd-logo" class="">
 								<p class="text-center argames">ArGames</p>
 								<footer class="text-white blockquote-footer argames_downtext">this is argames, an argentinian games page</footer>
@@ -36,7 +36,7 @@ include_once("servicios.php");
 					<div id="cd-nav" class="font-weight-bold">
 						<a href="#0" class="cd-nav-trigger">Menu<span></span></a>
 						<nav id="cd-main-nav">
-							<ul class="wow bounceInRight">
+							<ul class="wow fadeIn">
 								<li ><a href="#cd-logo">INICIO</a></li>
 								<?php if ($auth->estaLogueado()): ?>
 									<li><a href="perfil.php">PERFIL</a></li>
