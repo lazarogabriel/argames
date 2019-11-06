@@ -29,6 +29,7 @@
      <title>Ranking</title>
    </head>
    <body>
+
      <div class="container pb-2">
  			<div class="row">
  				<div class="col">
@@ -66,7 +67,7 @@
          </form>
 
 
-         <table class="table table-striped table-dark">
+         <table class="table table-striped table-dark wow zoomInDown">
           <thead style="border:none;">
             <tr>
               <th></th>
@@ -78,50 +79,39 @@
             <?php if($_POST): ?>
               <tbody>
               <?php if ($jugador): ?>
-                  <tr>
-                    <td width="8%"><?=$jugador["id"] ?></td>
-                    <td>
-                      <div class="container">
-                        <div class="row">
-                          <div class="d-flex">
-                            <div class=" col-md-8 col-lg-8 pl-0 pr-0">
-                              <img src="archivos_subidos/<?=$jugador["id"].".".$jugador["ext_img"]?>" alt="">
-                            </div>
-                            <div class="col-md-4 col-lg-4 pr-0 pl-0">
-                                <span class="username"><?=$jugador["username"] ?></span> <br>
-                                <small class="d-sm-block d-md-none">Junior</small>
-                            </div>
-                          </div>
+                <tr>
+                  <td width="8%" class="text-center"><?=$jugador["id"] ?></td>
+                  <td>
+                      <div class="d-flex">
+                        <div class="">
+                          <img src="archivos_subidos/<?=$jugador["id"].".".$jugador["ext_img"]?>" alt="">
+                        </div>
+                        <div class="pl-2">
+                            <span class="username"><?=$jugador["username"] ?></span> <br>
+                            <small class="d-sm-block d-md-none">Junior</small>
                         </div>
                       </div>
-                    </td>
-                    <td class="d-sm-none d-md-block">Junior</td>
-                    <td width="8%" class="text-center"><?=$jugador["age"] ?></td>
-                  </tr>
+                  </td>
+                  <td class="d-none d-md-block">Junior</td>
+                  <td width="8%" class="text-center"><?=$jugador["age"] ?></td>
+                </tr>
               <?php endif; ?>
 
             <?php else: ?>
               <tbody>
-              <?php foreach ($jugadores as $i => $jugador): ?>
+              <?php foreach ($jugadores as $jugador): ?>
                 <tr>
                   <td width="8%" class="text-center"><?=$jugador["id"] ?></td>
                   <td>
-                    <div class="container">
-                      <div class="row">
-
-                        <div class="d-flex">
-                          <div class=" pl-0 pr-0">
-                            <img src="archivos_subidos/<?=$jugador["id"].".".$jugador["ext_img"]?>" alt="">
-                          </div>
-
-                          <div class=" pr-0 pl-0">
-                              <span class="username"><?=$jugador["username"] ?></span> <br>
-                              <small class="d-sm-block d-md-none">Junior</small>
-                          </div>
+                      <div class="d-flex">
+                        <div class="">
+                          <img src="archivos_subidos/<?=$jugador["id"].".".$jugador["ext_img"]?>" alt="">
                         </div>
-
+                        <div class="pl-2">
+                            <span class="username"><?=$jugador["username"] ?></span> <br>
+                            <small class="d-sm-block d-md-none">Junior</small>
+                        </div>
                       </div>
-                    </div>
                   </td>
                   <td class="d-none d-md-block">Junior</td>
                   <td width="8%" class="text-center"><?=$jugador["age"] ?></td>

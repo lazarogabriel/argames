@@ -1,16 +1,30 @@
-
 .search{
   width:100%;
   border: 0;
   padding: 8px 20px;
-  font-size: 18px;
-  font-family: "soleil", "roboto", sans-serif;
+  font-size: 1.1em;
   border-radius: 10px;
 }
+.search:focus{
+  outline: none;
+  box-shadow: 0 0 0 2pt #3e6687;
+  transition: 0.3s;
+}
+
 .table{
+  color: #f2d257;
   border: none;
-  box-shadow: 0 0 40px -10px #060606;
+  box-shadow: 0 0 35px -10px #060606;
   border-radius: 10px;
+  background-color:#233645;
+}
+
+.table thead{
+  font-weight: bold;
+}
+
+.table thead th {
+    vertical-align: bottom;
 }
 
 .table img{
@@ -30,9 +44,7 @@
 .table-dark th, .table-dark td, .table-dark thead th{
   border: none;
 }
-.table thead th {
-    vertical-align: bottom;
-}
+
 
 table thead tr th:first-child::after{
   content: "Puesto";

@@ -1,6 +1,7 @@
 <?php
-include_once("servicios.php");
+  include_once("servicios.php");
 	session_start();
+
 ?>
 <!DOCTYPE html>
 <html lang="en" class="no-js">
@@ -19,7 +20,16 @@ include_once("servicios.php");
 	        </script>
 		<title>Inicio</title>
 	</head>
-	<body class="wow fadeIn">
+	<?php if ($_SESSION): ?>
+		<?php if ($_SESSION["user_object"]->getUsername() == "Lazzaro"
+					  || $_SESSION["user_object"]->getUsername() == "Lore"
+						|| $_SESSION["user_object"]->getUsername() == "Rich"): ?>
+				<div class="p-2 bd-highlight">
+					<a class="btn btn-secondary" href="admin.php" role="button">Administrar DB</a>
+			 </div>
+		<?php endif; ?>
+	<?php endif; ?>
+
 
 		<!-- <div id="welcome_card" class="wow fadeInDown bg-white">
 			<p class="" id="welcome_card">BIENVENID<?=($_SESSION['genero'] == "v")? "O" : (($_SESSION['genero'] == "m")? "A":"E"); ?>  <?=$_SESSION['username'] ?></p>
