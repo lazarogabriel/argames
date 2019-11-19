@@ -47,7 +47,7 @@
 						<a href="#0" class="cd-nav-trigger">Menu<span></span></a>
 						<nav id="cd-main-nav">
 							<ul class="wow fadeIn">
-								<li ><a href="#cd-logo">INICIO</a></li>
+								<li><a href="#cd-logo">INICIO</a></li>
 								<?php if ($auth->estaLogueado()): ?>
 									<li><a href="perfil.php">PERFIL</a></li>
 									<li> <a href="destroy_session.php">SALIR</a></li>
