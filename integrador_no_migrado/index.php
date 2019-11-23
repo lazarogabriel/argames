@@ -13,7 +13,6 @@
 		<link rel="stylesheet" href="css/bootstrap.css">
 		<link rel="stylesheet" href="css/index.css">
 		<link rel="stylesheet" href="css/animate.css">
-		<script src="js/modernizr.js"></script>
 		<script src="js/wow.min.js" type="text/javascript"></script>
 	        <script>
 	        new WOW().init();
