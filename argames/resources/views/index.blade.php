@@ -3,36 +3,6 @@
 @section('title', 'Inicio')
 @section('contenido')
 
-
-    <div class="container pb-5">
-      <div class="row">
-        <div class="col">
-          <header class="wow fadeIn">
-            <div id="cd-logo" class="">
-                <p class="text-center argames">ArGames</p>
-                <footer class="text-white blockquote-footer argames_downtext">this is argames, an argentinian games page</footer>
-            </div>
-          </header>
-          <div id="cd-nav" class="font-weight-bold">
-            <a href="#0" class="cd-nav-trigger">Menu<span></span></a>
-            <nav id="cd-main-nav">
-              <ul class="wow fadeIn">
-                <li><a href="#cd-logo">INICIO</a></li>
-                <?php //if ($auth->estaLogueado()): ?>
-                  <li><a href="perfil.php">PERFIL</a></li>
-                  <li> <a href="destroy_session.php">SALIR</a></li>
-                <?php //else: ?>
-                  <li><a href="login.php">INGRESAR</a></li>
-                  <li><a href="register.php">REGISTRARME</a></li>
-                <?php //endif; ?>
-              </ul>
-            </nav>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
     <main>
       <ul id="cd-gallery-items" class="cd-container">
         <a href="juegos/pacman/index.html" class="anchor_img_game">
@@ -44,7 +14,6 @@
                     <div class="col-12 font-weight-bold text-1">PAC MAN</div>
                     <div class="col-12 text-2">This is Pacman</div>
                   </div>
-
                 </div>
           </li>
         </a>
@@ -101,24 +70,18 @@
       </a>
 
       </div>
-      <a href="juegos/tateti_multi/tateti.html" class=" anchor_img_game">
-        <li class="wow pulse" style="background-image:url('images/tateti.jpg'); ">
-          <div class="container-games">
-            <img src="images/transparente.png" alt="Avatar" class="image">
-              <div class="overlay container-fluid">
-                <div class="row text-left text_game">
-                  <div class="col-12 font-weight-bold text-1">TATETI</div>
-                  <div class="col-12 text-2">Suerte para mi</div>
+        <a href="juegos/tateti_multi/tateti.html" class=" anchor_img_game">
+          <li class="wow pulse" style="background-image:url('images/tateti.jpg'); ">
+            <div class="container-games">
+              <img src="images/transparente.png" alt="Avatar" class="image">
+                <div class="overlay container-fluid">
+                  <div class="row text-left text_game">
+                    <div class="col-12 font-weight-bold text-1">TATETI</div>
+                    <div class="col-12 text-2">Suerte para mi</div>
+                  </div>
                 </div>
-              </div>
-        </li>
-      </a>
-
+          </li>
+        </a>
       </ul>
     </main>
-
-    <?php //include("sections/footer.html") ?>
-
-    <script src="js/jquery-2.1.1.js"></script>
-    <script src="js/main.js"></script>
 @endsection

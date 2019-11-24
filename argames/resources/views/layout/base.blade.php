@@ -1,18 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&display=swap" rel="stylesheet">
     <title>@yield("title")</title>
-    <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
-    <script type="text/javascript" src="{{ URL::asset('js/plugins/wow.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ mix('/css/app.css') }}" defer>
+    <script type="text/javascript" src="{{ URL::asset('js/plugins/wow.min.js') }}" defer></script>
     <script>
       new WOW().init();
     </script>
 </head>
 <body>
+    <div class="container pb-5">
+      <div class="row">
+        <div class="col">
+          <header class="wow fadeIn">
+            <div id="cd-logo" class="">
+                <p class="text-center argames">ArGames</p>
+                <footer class="text-white blockquote-footer argames_downtext">this is argames, an argentinian games site</footer>
+            </div>
+          </header>
+          <div id="cd-nav" class="font-weight-bold">
+            <a href="#0" class="cd-nav-trigger">Menu<span></span></a>
+            <nav id="cd-main-nav">
+              <ul class="wow fadeIn">
+                <li><a href="#cd-logo">INICIO</a></li>
+                  @guest
+                    <li><a href="/login">INGRESAR</a></li>
+                    <li><a href="/register">REGISTRARME</a></li>
+                  @else
+                    <li><a href="/perfil">PERFIL</a></li>
+                    <li>
+                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                            {{ __('SALIR') }}
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    </li>
+                  @endguest
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
     @yield('contenido')
 
     <div class="container pt-2">
