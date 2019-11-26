@@ -1,25 +1,4 @@
-/* --------------------------------
 
-Primary style
-
--------------------------------- */
-html * {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-*, *:after, *:before {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-body {
-  font-size: 100%;
-  font-family: "Montserrat", sans-serif;
-  background-color: #1d2c38;
-
-}
 
   /* SCROLL BAR */
 

@@ -6,7 +6,6 @@
 
     <div class="container">
       <div class="row align-items-center">
-
         <div class="col-xl-4 col-lg-5 col-md-12 ">
           <div class="container">
 
@@ -14,7 +13,7 @@
               <p class=" text-center argames ">ArGames</p>
               <footer class="blockquote-footer argames_downtext">this is argames, an argentinian games site</footer>
             </div>
-            <div class="row">
+            <div class="row d-none d-md-block">
               <img src="/images/balls_colision.gif" class="img-fluid mt-4 float-left" alt="imagen_de_un_metegol" height="">
             </div>
             </div>
@@ -25,6 +24,7 @@
         <div class="col-xl-4 col-lg-5 col-md-10 ">
 
           <form id="contact-stack-form" class="form wow slideInRight" action="{{ route('register') }}"  method='POST' enctype="multipart/form-data">
+            @csrf
               <div class="cube-1 w-100 cube">
                 <div class="front"></div>
                 <div class="back"></div>
@@ -174,7 +174,7 @@
               </div>
               <div class="cube-10 w-100 cube">
                 <div class="front">
-                  <label for="email" class="label" style="text-align:center;">{{ __('E-Mail Address') }}</label>
+                  <label for="email" class="label" style="text-align:center;">{{ __('E-Mail') }}</label>
                 </div>
                 <div class="back"></div>
                 <div class="top"></div>
@@ -308,7 +308,7 @@
               <div class="cube-15 w-100 cube">
                 <div class="front">
                   <label for="otro" class="label" style="text-align:center;">
-                    Otro &nbsp;<input class="radio_boton" type="radio" name="genre" value="o" checked>
+                    Otro &nbsp;<input class="radio_boton" type="radio" name="genre" value="o">
                   </label>
                 </div>
                 <div class="back"></div>
@@ -317,6 +317,20 @@
                 <div class="left"></div>
                 <div class="right"></div>
               </div>
+              <!-- RESERVADO PARA VALIDACIONES -->
+              @error('genre')
+                <div class="cube-31 w-300 cube text-center wow slideInRight">
+                  <div class="front">
+                    <p class="pt-2  texto_validacion">{{ $message }}</p>
+                  </div>
+                  <div class="back"></div>
+                  <div class="top"></div>
+                  <div class="bottom"></div>
+                  <div class="left"></div>
+                  <div class="right"></div>
+                </div>
+              @enderror
+              <!-- RESERVADO PARA VALIDACIONES -->
               <div class="cube-2 w-100 cube">
               <div class="front">
               <label for="age" class="label">Edad</label>
@@ -381,7 +395,7 @@
               </div>
               <div class="cube-2 w-100 cube">
                 <div class="front">
-                  <label for="img" class="label">{{ __('Img') }}</label>
+                  <label for="img" class="label">{{ __('Image') }}</label>
                 </div>
                 <div class="back"></div>
                 <div class="top"></div>
@@ -488,7 +502,7 @@
               </div>
               <div class="cube-28 w-100 cube">
                 <div class="front">
-                <label for="password-confirm" class="label">{{ __('Confirm Password') }}</label>
+                <label for="password-confirm" class="label">{{ __('Confirm') }}</label>
                 </div>
                 <div class="back"></div>
                 <div class="top"></div>
@@ -514,7 +528,7 @@
               </div>
               <div class="cube-5 w-300 cube">
                 <div class="front">
-                  <input id="password-confirm" type='password' name='password_confirmation' placeholder="Confirmar contraseña" class="field" required autocomplete="new-password">
+                  <input id="password-confirm" type='password' name='password_confirmation' placeholder="Confirmar contraseña" class="field form-control " required autocomplete="new-password">
                 </div>
                 <div class="back"></div>
                 <div class="top"></div>

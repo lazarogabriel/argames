@@ -7,14 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&display=swap" rel="stylesheet">
     <title>@yield("title")</title>
-    <link rel="stylesheet" href="{{ mix('/css/app.css') }}" defer>
-    <script type="text/javascript" src="{{ URL::asset('js/plugins/wow.min.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
+    <script type="text/javascript" src="{{ URL::asset('js/plugins/wow.min.js') }}"></script>
     <script>
       new WOW().init();
     </script>
 </head>
 <body>
-    <div class="container pb-5">
+    <div id="nav" class="container pb-5">
       <div class="row">
         <div class="col">
           <header class="wow fadeIn">
@@ -32,7 +32,7 @@
                     <li><a href="/login">INGRESAR</a></li>
                     <li><a href="/register">REGISTRARME</a></li>
                   @else
-                    <li><a href="/perfil">PERFIL</a></li>
+                    <li><a href="/profile">PERFIL</a></li>
                     <li>
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                             {{ __('SALIR') }}
@@ -52,7 +52,7 @@
 
     @yield('contenido')
 
-    <div class="container pt-2">
+    <div id="footer" class="container pt-2">
       <div class="row mb-3 align-items-center wow fadeInUp">
         <div class="col-lg-10 col-md-9 col-sm-12 text-white">
          <p class="text-md-left text-center">© <script>document.write(new Date().getFullYear());</script> Todos los derechos reservados. Hecho por <a href="#" class=" text-warning" target="_blank"><span class=" font-weight-bold argames_link">ArGames</span></a></p>
