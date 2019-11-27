@@ -1,15 +1,16 @@
 @extends('layout.base')
 
-@section('title', 'Inicio')
+@section('title', 'Rank')
 @section('contenido')
 
     <main>
 
      <div class="container pb-5" style="min-height:27vw;">
 
-         <form method="post" class="pb-5">
+         <form action="/rank/search" method="post" class="pb-5">
+           @csrf
            <div class="search-bar flex grow">
-             <input type="text" name="buscar" class="search flex grow" placeholder="Buscar una persona"/>
+             <input type="text" name="buscado" class="search flex grow" placeholder="Buscar un jugador"/>
            </div>
          </form>
 
@@ -23,57 +24,41 @@
               <th>Puntos</th>
             </tr>
           </thead>
-            <?php if($_POST): ?>
               <tbody>
-              <?php if ($jugador): ?>
+              @foreach ($players as $player)
                 <tr>
-                  <td width="8%" class="text-center">{{ $user->id }}</td>
+                  <td width="8%" class="text-center">{{ $player->id }}</td>
                   <td>
                       <div class="d-flex">
                         <div class="">
-                        <img src="/storage/{{ $user->img }}" alt="profile_img"/>
+                        <img src="/storage/{{ $player->img }}" alt="profile_img"/>
                         </div>
                         <div class="pl-2">
-                            <span class="username">{{ $user->username }}</span> <br>
+                        <span class="username">{{ $player->username }}</span> <br>
                             <small class="d-sm-block d-md-none">Junior</small>
                         </div>
                       </div>
                   </td>
                   <td class="d-none d-md-block">Junior</td>
-                  <td width="8%" class="text-center">{{$user->age}}</td>
+                  <td width="8%" class="text-center">{{$player->age}}</td>
                 </tr>
-              <?php endif; ?>
+              @endforeach
 
-            <?php else: ?>
-              <tbody>
-              <?php foreach ($jugadores as $jugador): ?>
-                <tr>
-                  <td width="8%" class="text-center">{{ $user->id }}</td>
-                  <td>
-                      <div class="d-flex">
-                        <div class="">
-                        <img src="/storage/{{ $user->img }}" alt="profile_img"/>
-                        </div>
-                        <div class="pl-2">
-                        <span class="username">{{ $user->username }}</span> <br>
-                            <small class="d-sm-block d-md-none">Junior</small>
-                        </div>
-                      </div>
-                  </td>
-                  <td class="d-none d-md-block">Junior</td>
-                  <td width="8%" class="text-center">{{$user->age}}</td>
-                </tr>
-              <?php endforeach; ?>
-          <?php endif; ?>
             <tr>
-            <?php if ($jugador): ?>
-              <td colspan="4">Total de jugadores: <?=$_POST ? 1 :count($jugadores)?></td>
-            <?php else: ?>
+            @if ($players->isNotEmpty())
+              <td colspan="3">Total de jugadores: {{$_POST ? 1 :count($players)}}</td>
+              <td>{{$players->links()}}</td>
+            @else
                <td colspan="4"><span class="text-warning">NO SE ECONTRARON RESULTADOS.</span></td>
-            <?php endif; ?>
+            @endif
           </tr>
           </tbody>
         </table>
     </div>
     </main>
+    <div class="bg-white">
+
+
+    </div>
+
 @endsection

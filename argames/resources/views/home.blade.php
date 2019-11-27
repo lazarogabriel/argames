@@ -5,7 +5,7 @@
 
     <main>
       <ul id="cd-gallery-items" class="cd-container">
-        <a href="juegos/pacman/index.html" class="anchor_img_game">
+        <a href="/gameNotEnable" class="anchor_img_game">
           <li class="wow pulse " style="background-image:url('/images/pacman_imagen_edit.webp');">
             <div class="container-games">
               <img src="images/transparente.png" alt="Avatar" class="image">
@@ -17,7 +17,7 @@
                 </div>
           </li>
         </a>
-        <a href="juegos/truco/index.html" class="anchor_img_game" >
+        <a href="/gameNotEnable" class="anchor_img_game">
           <li class="wow pulse" style="background-image:url('images/truco_imagen_edit.jpg'); ">
             <div class="container-games">
               <img src="images/transparente.png" alt="Avatar" class="image">
@@ -31,7 +31,7 @@
           </li>
         </a>
 
-      <a href="juegos/ahorcado/ahorcado_inicio.php" class="anchor_img_game ">
+      <a href="/gameNotEnable" class="anchor_img_game ">
         <li class="wow pulse"	style="background-image:url('images/ahorcado_imagen_edit.webp');">
           <div class="container-games">
             <img src="images/transparente.png" alt="Avatar" class="image">
@@ -44,7 +44,7 @@
         </li>
       </a>
 
-      <a href="juegos/ajedrez/example.html" class=" anchor_img_game">
+      <a href="/gameNotEnable" class=" anchor_img_game">
         <li class="wow pulse" style="background-image:url('images/ajedrez_imagen_edit.jpg'); ">
           <div class="container-games">
             <img src="images/transparente.png" alt="Avatar" class="image">
@@ -56,7 +56,7 @@
               </div>
         </li>
       </a>
-      <a href="juegos/damas/index.html" class=" anchor_img_game">
+      <a href="/gameNotEnable" class=" anchor_img_game">
         <li class="wow pulse" style="background-image:url('images/damas.jpg'); ">
           <div class="container-games">
             <img src="images/transparente.png" alt="Avatar" class="image">
@@ -70,7 +70,7 @@
       </a>
 
       </div>
-        <a href="juegos/tateti_multi/tateti.html" class=" anchor_img_game">
+        <a href="/gameNotEnable" class=" anchor_img_game">
           <li class="wow pulse" style="background-image:url('images/tateti.jpg'); ">
             <div class="container-games">
               <img src="images/transparente.png" alt="Avatar" class="image">
