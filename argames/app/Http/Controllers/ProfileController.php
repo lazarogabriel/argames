@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
@@ -36,6 +37,7 @@ class ProfileController extends Controller
       $user->genre = $data->input('genre');
       $user->age = $data->input('age');
       if($data["img"]){
+        Storage::delete("/public/" . $user->img);
         $ruta = $data["img"]->store('public');
         $user->img = basename($ruta);
       }

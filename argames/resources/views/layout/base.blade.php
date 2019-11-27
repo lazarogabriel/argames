@@ -27,7 +27,7 @@
             <a href="#0" class="cd-nav-trigger">Menu<span></span></a>
             <nav id="cd-main-nav">
               <ul class="wow fadeIn">
-                <li><a href="#cd-logo">INICIO</a></li>
+                <li><a href="/home">INICIO</a></li>
                   @guest
                     <li><a href="/login">INGRESAR</a></li>
                     <li><a href="/register">REGISTRARME</a></li>

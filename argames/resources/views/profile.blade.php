@@ -2,8 +2,7 @@
 
 @section('title', 'Profile')
 @section('contenido')
-
-  <div class="container emp-profile mt-md-0 wow zoomInRight">
+  <div class="container emp-profile mt-md-0 wow fadeIn">
       @if(isset($_GET["password"]))
         <form action="/profile/edit/password" method="post">
       @else
@@ -13,11 +12,11 @@
           <div class="row">
               <div class="col-lg-4">
                 <div class="profile-img mt-md-5 wow swing">
-                    <img src="/storage/{{ $user->img }}" alt="profile_img"/>
+                    <img id="profile-img-tag" src="/storage/{{ $user->img }}" alt="profile_img"/>
                 </div>
                 @if(isset($_GET["edit"]))
                   <div class="pt-3">
-                    <input type="file" name="img" class=""/>
+                    <input id="profile-img" type="file" name="img" class="" />
                     @error('img')
                       <p>{{$message}}</p>
                     @enderror
@@ -176,8 +175,11 @@
                                 {{$message}}
                               @enderror
                               @if(isset($_GET["password"]))
-                                <button type="submit" class="btn btn-light btn-sm py-0">Aceptar</button>
-                                <a href="/profile" class="btn btn-dark btn-sm py-0" role="button" >Cancelar</a>
+                              <div class="d-flex mt-3 mb-2 justify-content-around">
+                                <button type="submit" class="btn btn-light btn-sm py-0  px-4">Aceptar</button>
+                                <a href="/profile" class="btn btn-dark btn-sm py-0 px-4" role="button" >Cancelar</a>
+
+                              </div>
                               @endif
 
                           </div>
