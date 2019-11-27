@@ -4,7 +4,11 @@
 @section('contenido')
 
   <div class="container emp-profile mt-md-0 wow zoomInRight">
-      <form action="/profile/edit/accept" method="post" enctype="multipart/form-data">
+      @if(isset($_GET["password"]))
+        <form action="/profile/edit/password" method="post">
+      @else
+        <form action="/profile/edit/accept" method="post" enctype="multipart/form-data">
+      @endif
         @csrf
           <div class="row">
               <div class="col-lg-4">
@@ -12,11 +16,10 @@
                     <img src="/storage/{{ $user->img }}" alt="profile_img"/>
                 </div>
                 @if(isset($_GET["edit"]))
-                  <div class="file btn btn-lg btn-primary">
-                      Cambiar foto
-                    <input type="file" name="imagen" class="btn btn-warning"/>
-                    @error('image')
-                      Error al editar la foto
+                  <div class="pt-3">
+                    <input type="file" name="img" class=""/>
+                    @error('img')
+                      <p>{{$message}}</p>
                     @enderror
                   </div>
                 @endif
@@ -50,11 +53,11 @@
                       </div>
                       <div class="row ">
                           <div class="col-md-6 ">
-                              <label for="">Nombre de usuario</label>
+                              <label for="username">Nombre de usuario</label>
                           </div>
                           <div class="col-md-6 ">
                             @if (isset($_GET["edit"]))
-                              <input type="text" name="username" class="input_editar" value="{{ old('username') ? old('username'): $user->username}}">
+                              <input id="username" type="text" name="username" class="input_editar form-control @error('username') is-invalid @enderror" value="{{ old('username') ? old('username'): $user->username}}">
                               @error('username')
                                 {{$message}}
                               @enderror
@@ -65,11 +68,11 @@
                       </div>
                       <div class="row wow fadeInUp">
                           <div class="col-md-6">
-                              <label for="">Nombre</label>
+                              <label for="name">Nombre</label>
                           </div>
                           <div class="col-md-6">
                             @if (isset($_GET["edit"]))
-                              <input type="text" name="name" class="input_editar" value="{{ old('name') ? old('name'): $user->name}}">
+                              <input id="name" type="text" name="name" class="input_editar form-control @error('name') is-invalid @enderror" value="{{ old('name') ? old('name'): $user->name}}">
                               @error('name')
                                 {{$message}}
                               @enderror
@@ -80,11 +83,11 @@
                       </div>
                       <div class="row wow fadeInUp">
                           <div class="col-md-6">
-                              <label for="">Email</label>
+                              <label for="email">Email</label>
                           </div>
                           <div class="col-md-6">
                             @if (isset($_GET["edit"]))
-                              <input type="text" name="email" class="input_editar" value="{{ old('email') ? old('email'): $user->email}}">
+                              <input id="email" type="text" name="email" class="input_editar form-control @error('email') is-invalid @enderror" value="{{ old('email') ? old('email'): $user->email}}">
                                 @error('email')
                                 {{$message}}
                                 @enderror
@@ -96,25 +99,11 @@
 
                       <div class="row wow fadeInUp">
                           <div class="col-md-6">
-                              <label for="">Genero</label>
+                              <label for="age">Edad</label>
                           </div>
                           <div class="col-md-6">
                             @if (isset($_GET["edit"]))
-                              <input class="radio_boton" type="radio" name="genre" value="v" {{ ($user->genre == "Varon")? 'checked':'' }}> Varon&nbsp;
-                              <input class="radio_boton" type="radio" name="genre" value="m" {{ ($user->genre == "Mujer")? 'checked':'' }}> Mujer&nbsp;
-                              <input class="radio_boton" type="radio" name="genre" value="o" {{ ($user->genre == "Otro")? 'checked':'' }}> Otro
-                            @else
-                                <p>{{($user->genre == "v")? "Varon" : (($user->genre == "m")? "Mujer":"Otro")}} </p>
-                             @endif
-                          </div>
-                      </div>
-                      <div class="row wow fadeInUp">
-                          <div class="col-md-6">
-                              <label for="">Edad</label>
-                          </div>
-                          <div class="col-md-6">
-                            @if (isset($_GET["edit"]))
-                              <input type="number" name="age" class="input_editar" value="{{ old('age') ? old('age'): $user->age}}">
+                              <input id="age" type="number" name="age" class="input_editar form-control @error('age') is-invalid @enderror" value="{{ old('age') ? old('age'): $user->age}}">
                               @error('age')
                                 {{$message}}
                               @enderror
@@ -124,39 +113,73 @@
                           </div>
                       </div>
                       <div class="row wow fadeInUp">
+                        <div class="col-md-6">
+                          <label for="genre">Genero</label>
+                        </div>
+                        <div class="col-md-6">
+                          @if (isset($_GET["edit"]))
+                            <input id="genre" class="radio_boton" type="radio" name="genre" value="Varon" {{ ($user->genre == "Varon")? 'checked':'' }}> Varon&nbsp;
+                            <input id="genre" class="radio_boton" type="radio" name="genre" value="Mujer" {{ ($user->genre == "Mujer")? 'checked':'' }}> Mujer&nbsp;
+                            <input id="genre" class="radio_boton" type="radio" name="genre" value="Otro" {{ ($user->genre == "Otro") ? 'checked':'' }}> Otro
+                          @else
+                            <p>{{($user->genre == "Varon")? "Varon" : (($user->genre == "Mujer")? "Mujer":"Otro")}} </p>
+                          @endif
+                        </div>
+                      </div>
+                      <div class="row wow fadeInUp">
                           <div class="col-md-6 pb-2">
-                              <label for="">Recordarme</label>
+                              <label for="remember" class="pt-2">Recordarme</label>
                           </div>
                           <div class="col-md-6">
                             <input type="checkbox" class="mt-2 mb-3" {{ old('remember') ? 'checked' : '' }} disabled>
                           </div>
                       </div>
                       <div class="row wow fadeInUp">
+
                           <div class="col-md-6">
-                              <label for="">Contraseña</label>
+                              <label for="password" class="mb-0 pt-3">Contraseña</label>
                           </div>
                           <div class="col-md-6">
-                            @if (isset($_GET["edit"]))
-                                <input type="password" name="password" class="input_editar">
+                            @if (isset($_GET["password"]))
+                                <input id="password" type="password" name="password" class="input_editar form-control @error('password') is-invalid @enderror" placeholder="Nueva contraseña">
+                                @error('password')
+                                  {{$message}}
+                                @enderror
                               @else
-                                <p>
-                                @for($i = 0; $i < 15; $i++)
-                                  &#8226;
-                                @endfor
+                                <p class="pt-3">
+                                  @for($i = 0; $i < 25; $i++)&#8226;@endfor
+                                  @if(isset($_GET["edit"]))
+                                    <a href="/profile/edit?password" class="btn btn-warning btn-sm py-0 ml-2" role="button" aria-pressed="true">Editar</a>
+                                  @endif
                                 </p>
                              @endif
                           </div>
+
                       </div>
-                    @if (isset($_GET["edit"]))
+
+                    @if (isset($_GET["password"]))
                       <div class="row wow fadeInUp">
                           <div class="col-md-6">
-                              <label for="">Confirmar contraseña</label>
+                              <label for="password_confirmation" class="mb-0 pt-3">Confirmar contraseña</label>
                           </div>
                           <div class="col-md-6">
-                              <input type="password" name="cPassword" class="input_editar" value="">
-                              @error('cPassword')
+                              <input id="password_confirmation" type="password" name="password_confirmation" class="input_editar form-control @error('password_confirmation') is-invalid @enderror" placeholder="Confirmar contraseña">
+                          </div>
+                      </div>
+                      <div class="row wow fadeInUp">
+                          <div class="col-md-6">
+                              <label for="current-password" class="mb-0 pt-3">Contraseña actual</label>
+                          </div>
+                          <div class="col-md-6">
+                              <input id="current-password" type="password" name="current-password" class="input_editar form-control @error('current-password') is-invalid @enderror" placeholder="Contraseña actual">
+                              @error('current-password')
                                 {{$message}}
                               @enderror
+                              @if(isset($_GET["password"]))
+                                <button type="submit" class="btn btn-light btn-sm py-0">Aceptar</button>
+                                <a href="/profile" class="btn btn-dark btn-sm py-0" role="button" >Cancelar</a>
+                              @endif
+
                           </div>
                       </div>
                      @endif
@@ -198,14 +221,17 @@
                   </div>
                 </div>
               </div>
-              @if($_GET)
+              @if(isset($_GET["edit"]))
                 <div class="col-lg-2 text-center wow bounceInLeft">
-                  <input type="submit" class="profile-edit-btn mt-3 mb-2" name="" value="ACEPTAR"/>
+                  <button type="submit" class="profile-edit-btn mt-3 mb-2" name="" value="ACEPTAR"/>ACEPTAR</button>
+                  <button class="profile-edit-btn mb-2" style="background-color:transparent; border:2px solid grey;">
+                    <a href="/profile" style="text-decoration:none;color:#DDDDDD;">CANCELAR</a>
+                  </button>
                 </div>
               @endif
             </form>
 
-            @if(!$_GET)
+            @if(!isset($_GET["edit"]) && !isset($_GET["password"]))
             <div class="col-lg-2 text-center wow bounceInLeft">
               <form class="" action="/profile/edit" method="get">
                   <input type="submit" class="profile-edit-btn mt-3 mb-2" name="edit" value="EDITAR"/>
@@ -216,5 +242,4 @@
           </div>
 
     </div>
-
 @endsection
