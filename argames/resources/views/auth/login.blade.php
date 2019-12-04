@@ -2,6 +2,7 @@
 @section('title', 'Login')
 
 @section('content')
+
     <div class="container" style="min-height:46vw;">
       <div class="row align-items-center">
         <div  class="col-xl-4 col-lg-5 col-md-12 wow rubberBand ">
@@ -136,13 +137,12 @@
               <div class="cube-12 w-300 cube">
                 <div class="front p-2" >
 
-
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                <label class="form-check-label" for="remember">
-                    {{ __('Remember Me') }}
-                </label>
-            </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                    <label class="form-check-label" for="remember">
+                        {{ __('Remember Me') }}
+                    </label>
+                </div>
 
                 </div>
                 <div class=" back"></div>

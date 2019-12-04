@@ -12,15 +12,19 @@
           <div class="row">
               <div class="col-lg-4">
                 <div class="profile-img mt-md-5 wow swing">
-                    <img id="profile-img-tag" src="/storage/{{ $user->img }}" alt="profile_img"/>
+                    <img id="profile-img-tag" class="file-upload-image" src="/storage/{{ $user->img }}" alt="profile_img"/>
                 </div>
                 @if(isset($_GET["edit"]))
-                  <div class="pt-3">
-                    <input id="profile-img" type="file" name="img" class="" />
-                    @error('img')
-                      <p>{{$message}}</p>
-                    @enderror
+                  <button name="img"  type="button" class="file-upload-btn mt-3 " onclick="$('.file-upload-input').trigger( 'click' )" style="border-radius:100px;">Selecctionar imagen</button>
+                  <div class="image-upload-wrap d-none d-lg-block">
+                    <input name="img" type='file' class="file-upload-input" onchange="readURL(this);" accept="image/*" />
+                    <div class="drag-text p-4">
+                      <h3>Arrastra una imagen para subirla</h3>
+                    </div>
                   </div>
+                  @error('img')
+                    <p>{{$message}}</p>
+                  @enderror
                 @endif
               </div>
               <div class="col-lg-6">
@@ -227,7 +231,7 @@
                 <div class="col-lg-2 text-center wow bounceInLeft">
                   <button type="submit" class="profile-edit-btn mt-3 mb-2" name="" value="ACEPTAR"/>ACEPTAR</button>
                   <button class="profile-edit-btn mb-2" style="background-color:transparent; border:2px solid grey;">
-                    <a href="/profile" style="text-decoration:none;color:#DDDDDD;">CANCELAR</a>
+                    <a href="/profile" style="text-decoration:none;color:#808080;">CANCELAR</a>
                   </button>
                 </div>
               @endif

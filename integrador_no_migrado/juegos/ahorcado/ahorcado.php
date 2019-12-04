@@ -71,7 +71,7 @@
         <div class="row main-card my-5 mx-1 p-3">
 
           <div class="col-sm-12 text-center">
-            <h1 class="text-white font-weight-bold">AHORCADO</h1>
+            <h1 class="input_word text-white font-weight-bold">AHORCADO</h1>
           </div>
 
           <div class="col-sm-12 text-center py-4">

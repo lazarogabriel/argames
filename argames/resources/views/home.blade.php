@@ -2,7 +2,6 @@
 
 @section('title', 'Inicio')
 @section('contenido')
-
     <main>
       <ul id="cd-gallery-items" class="cd-container">
         <a href="/gameNotEnable" class="anchor_img_game">
@@ -31,7 +30,7 @@
           </li>
         </a>
 
-      <a href="/gameNotEnable" class="anchor_img_game ">
+      <a href="/ahorcado" class="anchor_img_game ">
         <li class="wow pulse"	style="background-image:url('images/ahorcado_imagen_edit.webp');">
           <div class="container-games">
             <img src="images/transparente.png" alt="Avatar" class="image">
@@ -66,10 +65,10 @@
                   <div class="col-12 text-2">Comer o se comido</div>
                 </div>
               </div>
+            </div>
         </li>
       </a>
 
-      </div>
         <a href="/gameNotEnable" class=" anchor_img_game">
           <li class="wow pulse" style="background-image:url('images/tateti.jpg'); ">
             <div class="container-games">
@@ -80,8 +79,10 @@
                     <div class="col-12 text-2">Suerte para mi</div>
                   </div>
                 </div>
+            </div>
           </li>
         </a>
+
       </ul>
     </main>
 @endsection

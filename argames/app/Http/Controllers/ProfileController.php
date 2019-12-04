@@ -59,4 +59,5 @@ class ProfileController extends Controller
       $user->save();
       return view('profile',['user'=>$user]);
     }
+    
 }
