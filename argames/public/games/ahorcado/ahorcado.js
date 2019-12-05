@@ -83,7 +83,7 @@ var palabra_encriptada;
 formulario_palabra.addEventListener('submit', function(e){
     e.preventDefault();
 
-    palabra = document.getElementById("palabra").value;
+    palabra = document.getElementById("palabra").value.toLowerCase();
     if(palabra == null || palabra.length == 0 || /^\s+$/.test(palabra) || !abecedario.test(palabra))return interface.mensajeError("Debes ingresar una palabra!", "palabra","alerta_1");
     if(palabra.length < 3 || palabra.length > 25)return interface.mensajeError("Debe contener tener entre 3 y 25 caracteres!", "palabra", "alerta_1");    
         
@@ -94,14 +94,14 @@ formulario_letra.addEventListener('submit', function(e){
     
     e.preventDefault();
 
-    letra = document.getElementById("letra").value;
+    letra = document.getElementById("letra").value.toLowerCase();
 
     if(letra == null || letra.length == 0 || letra.length > 1 || /^\s+$/.test(letra) || !abecedario.test(letra))return interface.mensajeError("Debe ingresar solo una letra!","letra", "alerta_2");
 
     var fail_letter = true;
 
     for(var i = 0; i < palabra.length; i++){
-        if(palabra[i] === letra){
+        if(palabra[i] == letra){
             fail_letter = false;
             palabra_encriptada[i] = palabra[i];
         }
@@ -123,6 +123,7 @@ function iniciarJuego(){
     form_word.style.display = "none";
     form_letter.style.display = "block";
     
+
     palabra_encriptada = Array.from(palabra);
 
     var n_rand = Math.floor(Math.random() * (palabra.length));

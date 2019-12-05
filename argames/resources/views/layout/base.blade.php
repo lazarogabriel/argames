@@ -14,13 +14,12 @@
     </script>
 </head>
 <body>
-    <div id="nav" class="container pb-5">
+    <div id="nav" class="container">
       <div class="row">
         <div class="col">
           <header class="wow fadeIn">
-            <div id="cd-logo" class="">
-                <p class="text-center argames">ArGames</p>
-                <footer class="text-white blockquote-footer argames_downtext">this is argames, an argentinian games site</footer>
+            <div id="cd-logo">
+                @yield("header-title")
             </div>
           </header>
           <div id="cd-nav" class="font-weight-bold">
@@ -58,7 +57,7 @@
          <p class="text-md-left text-center">© <script>document.write(new Date().getFullYear());</script> Todos los derechos reservados. Hecho por <a href="#" class=" text-warning" target="_blank"><span class=" font-weight-bold argames_link">ArGames</span></a></p>
         </div>
         <div class="col-lg-2 col-md-3  col-sm-12 copyrighy_footer justify-content-between d-flex">
-            <a style="border:1.1px solid yellow; letter-spacing:0.2em;" class=" m-1 p-1 btn text-warning faqbutton" href="/rank" role="button">RANK</a>
+          <a style="border:1.1px solid yellow; letter-spacing:0.2em;" class=" m-1 p-1 btn text-warning faqbutton" href="/rank" role="button">RANK</a>
           <a style="letter-spacing:0.1em;" class="m-1 p-1 btn text-dark bg-warning faqbutton" href="/faqs" role="button">F.A.Qs</a>
         </div>
       </div>

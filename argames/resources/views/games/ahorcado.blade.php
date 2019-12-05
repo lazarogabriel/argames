@@ -10,11 +10,13 @@
 </head>
 <body class="fadeIn">
 
+    
     <div class="bs-docs-section container text-white">
-
-        <div class="jumbotron mt-5">
+        <div class="py-4">
+            <h2><img style="filter:invert(100%)" src="games/ahorcado/arrow-left-solid.svg" onclick="window.history.back();" width="35" height="35"> Back</h2>
+        </div>
+        <div class="jumbotron mt-2">
             <div class="row">
-
                 <div id="formularios" class="col-md-6">
                     <h1 class="display-5">El ahorcado</h1>
                     <div id="endGameContainerMessage"></div>

@@ -26,10 +26,6 @@ body{
     letter-spacing: 1ch;
   }
 
-
-
-  /*  */
-
 .fadeIn{
     animation: fadein 1s;
     -moz-animation: fadein 1s; 

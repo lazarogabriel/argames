@@ -1,27 +1,33 @@
 @extends('layout.base')
 
 @section('title', 'Profile')
+
+
+  @section('header-title')
+    <p class="text-left pt-4 wow bounceInRight" style="font-size:2em;color:white;"> 
+      <i class="fas fa-arrow-left" onclick="window.history.back();"></i>
+      <span class="argames" style="font-size:1.6em;">Perfil</span> 
+    </p>
+  @endsection
+  
+
 @section('contenido')
-  <div class="container emp-profile mt-md-0 wow fadeIn">
-      @if(isset($_GET["password"]))
-        <form action="/profile/edit/password" method="post">
-      @else
-        <form action="/profile/edit/accept" method="post" enctype="multipart/form-data">
-      @endif
+  <div class="container emp-profile mt-md-0 wow fadeIn" style="font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
+    <form action="/profile/edit/{{ (isset($_GET["password"])) ? "password": "accept"}} " method="post" enctype="multipart/form-data">
+      
         @csrf
           <div class="row">
               <div class="col-lg-4">
-                <div class="profile-img mt-md-5 wow swing">
-                    <img id="profile-img-tag" class="file-upload-image" src="/storage/{{ $user->img }}" alt="profile_img"/>
+                <div class="profile-img">
+                  <img id="profile-img-tag" class="file-upload-image mt-4 mt-md-0" src="/storage/{{ $user->img }}" alt="profile_img"/>
+                  <div class="text-center">
+                      <h1 class="font-weight-bold mb-0 pt-1">{{ $user->username }} </h1>
+                       <!--TIPO DE JUGADOR, DEPENDE DE LAS VARIABLES "TIEMPO JUGADO", "SCORE".EN BASE A ESTAS VARIABLES CALCULAR. TRAINEE/JUNIOR/SEMI SENIO/SENIOR  -->
+                      <p class="text-warning">Senior</p>
+                  </div>
                 </div>
                 @if(isset($_GET["edit"]))
-                  <button name="img"  type="button" class="file-upload-btn mt-3 " onclick="$('.file-upload-input').trigger( 'click' )" style="border-radius:100px;">Selecctionar imagen</button>
-                  <div class="image-upload-wrap d-none d-lg-block">
-                    <input name="img" type='file' class="file-upload-input" onchange="readURL(this);" accept="image/*" />
-                    <div class="drag-text p-4">
-                      <h3>Arrastra una imagen para subirla</h3>
-                    </div>
-                  </div>
+                  <button name="img"  type="button" class="file-upload-btn mb-3" onclick="$('.file-upload-input').trigger( 'click' )" style="border-radius:100px;">Selecctionar imagen</button>
                   @error('img')
                     <p>{{$message}}</p>
                   @enderror
@@ -29,11 +35,6 @@
               </div>
               <div class="col-lg-6">
                 <div class="profile-head">
-                    <h5 class="">{{ $user->username }}</h5>
-                    <h6>Senior</h6>   <!--TIPO DE JUGADOR, DEPENDE DE LAS VARIABLES "TIEMPO JUGADO", "SCORE".EN BASE A ESTAS VARIABLES CALCULAR. TRAINEE/JUNIOR/SEMI SENIO/SENIOR  -->
-                    <p class="proile-rating">
-                      RANKING:<span>8/10</span><!-- HACER UNA SUMA DE TODOS LOS SCORE Y CALCULAR RANKING-->
-                    </p>
                   <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Mis datos</a>
@@ -46,7 +47,7 @@
                 <div class="col-md-12">
                   <div class="tab-content profile-tab " id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                      <div class="row wow fadeInUp">
+                      <div class="row ">
                           <div class="col-md-6 ">
                               <label for="">ID Usuario</label>
                           </div>
@@ -69,7 +70,7 @@
                              @endif
                           </div>
                       </div>
-                      <div class="row wow fadeInUp">
+                      <div class="row ">
                           <div class="col-md-6">
                               <label for="name">Nombre</label>
                           </div>
@@ -84,7 +85,7 @@
                              @endif
                           </div>
                       </div>
-                      <div class="row wow fadeInUp">
+                      <div class="row ">
                           <div class="col-md-6">
                               <label for="email">Email</label>
                           </div>
@@ -100,7 +101,7 @@
                           </div>
                       </div>
 
-                      <div class="row wow fadeInUp">
+                      <div class="row ">
                           <div class="col-md-6">
                               <label for="age">Edad</label>
                           </div>
@@ -115,7 +116,7 @@
                              @endif
                           </div>
                       </div>
-                      <div class="row wow fadeInUp">
+                      <div class="row ">
                         <div class="col-md-6">
                           <label for="genre">Genero</label>
                         </div>
@@ -129,7 +130,7 @@
                           @endif
                         </div>
                       </div>
-                      <div class="row wow fadeInUp">
+                      <div class="row ">
                           <div class="col-md-6 pb-2">
                               <label for="remember" class="pt-2">Recordarme</label>
                           </div>
@@ -137,7 +138,7 @@
                             <input type="checkbox" class="mt-2 mb-3" {{ old('remember') ? 'checked' : '' }} disabled>
                           </div>
                       </div>
-                      <div class="row wow fadeInUp">
+                      <div class="row ">
 
                           <div class="col-md-6">
                               <label for="password" class="mb-0 pt-3">Contraseña</label>
@@ -161,7 +162,7 @@
                       </div>
 
                     @if (isset($_GET["password"]))
-                      <div class="row wow fadeInUp">
+                      <div class="row ">
                           <div class="col-md-6">
                               <label for="password_confirmation" class="mb-0 pt-3">Confirmar contraseña</label>
                           </div>
@@ -169,7 +170,7 @@
                               <input id="password_confirmation" type="password" name="password_confirmation" class="input_editar form-control @error('password_confirmation') is-invalid @enderror" placeholder="Confirmar contraseña">
                           </div>
                       </div>
-                      <div class="row wow fadeInUp">
+                      <div class="row ">
                           <div class="col-md-6">
                               <label for="current-password" class="mb-0 pt-3">Contraseña actual</label>
                           </div>
@@ -228,7 +229,7 @@
                 </div>
               </div>
               @if(isset($_GET["edit"]))
-                <div class="col-lg-2 text-center wow bounceInLeft">
+                <div class="col-lg-2 text-center">
                   <button type="submit" class="profile-edit-btn mt-3 mb-2" name="" value="ACEPTAR"/>ACEPTAR</button>
                   <button class="profile-edit-btn mb-2" style="background-color:transparent; border:2px solid grey;">
                     <a href="/profile" style="text-decoration:none;color:#808080;">CANCELAR</a>
@@ -238,7 +239,7 @@
             </form>
 
             @if(!isset($_GET["edit"]) && !isset($_GET["password"]))
-            <div class="col-lg-2 text-center wow bounceInLeft">
+            <div class="col-lg-2 text-center">
               <form class="" action="/profile/edit" method="get">
                   <input type="submit" class="profile-edit-btn mt-3 mb-2" name="edit" value="EDITAR"/>
               </form>

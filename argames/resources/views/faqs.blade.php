@@ -1,22 +1,18 @@
 @extends('layout.base')
 
 @section('title', 'F.A.Qs')
+
+  @section('header-title')
+    <p class="text-left pt-5 wow bounceInRight" style="font-size:2em;color:white;"> 
+      <i class="fas fa-arrow-left" onclick="window.history.back();"></i>
+      <span class="argames" style="font-size:1.2em;"> F . A . Qs</span> 
+    </p>
+  @endsection
+
 @section('contenido')
 
-    <h2 class="FAQ_text font-weight-bold mb-0 wow jello">F.A.Qs</h2>
     <h2 class="FAQ_text mt-1 mb-5 wow fadeIn">Preguntas frecuentes</h2>
-
-        <!-- <div style="visibility: hidden; position: absolute; width: 0px; height: 0px;">
-          <svg xmlns="http://www.w3.org/2000/svg">
-            <symbol viewBox="0 0 24 24" id="expand-more">
-              <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/><path d="M0 0h24v24H0z" fill="none"/>
-            </symbol>
-            <symbol viewBox="0 0 24 24" id="close">
-              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/>
-            </symbol>
-          </svg>
-        </div> -->
-         <details class="wow jackInTheBox">  <!--AGREGARLE UN "open" como atributo para que aparezca abierta la tarjeta -->
+         <details class="wow bounceInUp">  <!--AGREGARLE UN "open" como atributo para que aparezca abierta la tarjeta -->
           <summary>
             ¿Que es ArGames?
             <svg class="control-icon control-icon-expand" width="24" height="24" role="presentation"></svg>
@@ -27,7 +23,7 @@
           </p>
         </details>
 
-        <details class="wow jackInTheBox">
+        <details class="wow bounceInUp">
 
           <summary>
             ¿Como me registro?
@@ -39,7 +35,7 @@
           </p>
         </details>
 
-        <details class="wow jackInTheBox">
+        <details class="wow bounceInUp">
 
           <summary>
             ¿Como inicio sesion?
@@ -51,7 +47,7 @@
           </p>
         </details>
 
-        <details class="wow jackInTheBox">
+        <details class="wow bounceInUp">
           <summary>
             ¿Tengo un problema para iniciar sesión, como puedo solucionarlo?
             <svg class="control-icon control-icon-expand" width="24" height="24" role="presentation"></svg>
@@ -63,7 +59,7 @@
         </details>
 
 
-        <details class="wow jackInTheBox">
+        <details class="wow bounceInUp">
           <summary>
             ¿Puedo jugar online con otra persona?
             <svg class="control-icon control-icon-expand" width="24" height="24" role="presentation"></svg>
@@ -74,7 +70,7 @@
           </p>
         </details>
 
-        <details class="wow jackInTheBox">
+        <details class="wow bounceInUp">
           <summary>
             ¿Quién administra ArGames.com?
             <svg class="control-icon control-icon-expand" width="24" height="24" role="presentation"></svg>
@@ -84,7 +80,7 @@
             ArGmes.com es administrado por un grupo de programadores.
           </p>
         </details>
-        <details class="wow jackInTheBox">
+        <details class="wow bounceInUp">
           <summary>
             ¿Como cancelar mi cuenta?
             <svg class="control-icon control-icon-expand" width="24" height="24" role="presentation"></svg>
@@ -94,7 +90,7 @@
             Para cancelar tu cuenta mandanos un email a <a href="#">argames@consultas.com</a>.
           </p>
         </details>
-        <details class="wow jackInTheBox" >
+        <details class="wow bounceInUp" >
           <summary>
             ¿Como puedo enviar una aportacion?
             <svg class="control-icon control-icon-expand" width="24" height="24" role="presentation"></svg>
@@ -105,7 +101,7 @@
           </p>
         </details>
 
-        <details class="wow jackInTheBox mb-5">
+        <details class="wow bounceInUp mb-5">
           <summary>
             ¿Como cambiar mi nombre de usuario?
             <svg class="control-icon control-icon-expand" width="24" height="24" role="presentation"></svg>

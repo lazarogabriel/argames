@@ -1,8 +1,14 @@
 @extends('layout.base')
 
 @section('title', 'Inicio')
+
+  @section('header-title')
+    <p class="text-center argames">ArGames </p>
+    <p class="text-white blockquote-footer argames_downtext">this is argames, an argentinian games site</p>
+  @endsection
+
 @section('contenido')
-    <main>
+    <main class="mt-5">
       <ul id="cd-gallery-items" class="cd-container">
         <a href="/gameNotEnable" class="anchor_img_game">
           <li class="wow pulse " style="background-image:url('/images/pacman_imagen_edit.webp');">
@@ -28,7 +34,7 @@
                 </div>
               </div>
           </li>
-        </a>
+        </a> 
 
       <a href="/ahorcado" class="anchor_img_game ">
         <li class="wow pulse"	style="background-image:url('images/ahorcado_imagen_edit.webp');">
@@ -85,4 +91,5 @@
 
       </ul>
     </main>
+    
 @endsection
