@@ -14,9 +14,9 @@ class RankController extends Controller
       return view('rank', ['players'=> $players]);
     }
 
-    public function search(){
-      $players = User::where('username', 'LIKE','%' . $_POST["buscado"] . '%')->paginate(5);
+    public function searching(Request $req){
+      $players = User::where('username', 'LIKE',$req->buscador . '%')->paginate(5);
 
-      return view('rank', ['players'=> $players]);
+      return view('layout.players', ['players'=> $players]);
     }
 }

@@ -10,7 +10,7 @@ Route::get('/faqs', function(){ return view('faqs');});
 
 Route::get('/rank', 'RankController@index');
 
-Route::post('/rank/search', 'RankController@search');
+Route::get('/ranking', 'RankController@searching');
 
 Route::get('/profile', 'ProfileController@index');
 Route::get('/profile/edit', 'ProfileController@index');

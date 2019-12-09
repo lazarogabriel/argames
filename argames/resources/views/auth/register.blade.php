@@ -283,7 +283,7 @@
               <div class="cube-13 w-100 cube">
                 <div class="front">
                     <label for="varon" class="label" style="text-align:center;">
-                      Varon &nbsp;<input class="radio_boton" type="radio" name="gen" value="v">
+                      Varon &nbsp;<input class="radio_boton" type="radio" name="genre" value="v">
                     </label>
                 </div>
                 <div class="back"></div>
@@ -296,7 +296,7 @@
                 <div class="front">
                   <label for="mujer" class="label" style="text-align:center;">
                     Mujer &nbsp;
-                    <input class="radio_boton" type="radio" name="gen" value="m">
+                    <input class="radio_boton" type="radio" name="genre" value="m">
                   </label>
                 </div>
                 <div class="back"></div>

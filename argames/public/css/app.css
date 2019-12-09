@@ -23904,7 +23904,6 @@ details[open] summary:hover::after {
 }
 
 .table img {
-  margin-right: 15px;
   border-radius: 100px;
   -o-object-fit: cover;
      object-fit: cover;
