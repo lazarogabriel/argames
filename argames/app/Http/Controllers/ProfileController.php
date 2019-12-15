@@ -43,7 +43,7 @@ class ProfileController extends Controller
       }
 
       $user->save();
-      return view('profile',['user'=>$user]);
+      return view('profile',['user' => $user]);
     }
 
     public function editPassword(Request $data){
@@ -57,7 +57,7 @@ class ProfileController extends Controller
       $user->password = Hash::make($data['password']);
 
       $user->save();
-      return view('profile',['user'=>$user]);
+      return view('profile',['user' => $user]);
     }
     
 }

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Login')
+@section('title', 'ArGames - Ingresar')
 
 @section('content')
 
@@ -16,7 +16,7 @@
               <div class="cube-1 w-100 cube">
                 <div class=" front"></div>
                 <div class=" back"></div>
-                <div class=" top"></div>
+                <div class=" top"></div>  
                 <div class=" bottom"></div>
                 <div class=" left"></div>
                 <div class=" right"></div>

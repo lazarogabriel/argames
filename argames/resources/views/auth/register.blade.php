@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Registro')
+@section('title', 'ArGames - Registro')
 
 @section('content')
 

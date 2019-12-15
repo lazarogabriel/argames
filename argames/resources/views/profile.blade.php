@@ -11,10 +11,22 @@
   @endsection
   
 
-@section('contenido')
-  <div class="container emp-profile mt-md-0 wow fadeIn" style="font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
+@section('contenido') 
+
+  @php
+      $update = null;
+      if (isset($_GET['edit'])) $update = $user->updated_at;
+  @endphp
+  @if ($user->updated_at > $update && $_POST)
+    <div class="container">
+      <div class="alert alert-success" role="alert">
+          Tu perfil ha sido modificado exitosamente!
+      </div>
+    </div>
+  @endif
+  
+  <div class="container emp-profile mt-md-0 wow fadeIn">
     <form action="/profile/edit/{{ (isset($_GET["password"])) ? "password": "accept"}} " method="post" enctype="multipart/form-data">
-      
         @csrf
           <div class="row">
               <div class="col-lg-4">

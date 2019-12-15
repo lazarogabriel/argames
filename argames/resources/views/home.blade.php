@@ -1,6 +1,6 @@
 @extends('layout.base')
 
-@section('title', 'Inicio')
+@section('title', 'Argames - Inicio')
 
   @section('header-title')
     <p class="text-center argames">ArGames </p>
@@ -10,7 +10,7 @@
 @section('contenido')
     <main class="mt-5">
       <ul id="cd-gallery-items" class="cd-container">
-        <a href="/gameNotEnable" class="anchor_img_game">
+        <a href="/pacman" class="anchor_img_game">
           <li class="wow pulse " style="background-image:url('/images/pacman_imagen_edit.webp');">
             <div class="container-games">
               <img src="images/transparente.png" alt="Avatar" class="image">
@@ -20,6 +20,7 @@
                     <div class="col-12 text-2">This is Pacman</div>
                   </div>
                 </div>
+            </div>
           </li>
         </a>
         <a href="/gameNotEnable" class="anchor_img_game">
@@ -46,6 +47,7 @@
                   <div class="col-12 text-2">Adivina la palabra</div>
                 </div>
               </div>
+          </div>
         </li>
       </a>
 
@@ -59,6 +61,7 @@
                   <div class="col-12 text-2">Maravillosa jugada</div>
                 </div>
               </div>
+          </div>
         </li>
       </a>
       <a href="/gameNotEnable" class=" anchor_img_game">
