@@ -49350,6 +49350,8 @@ module.exports = function(module) {
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+__webpack_require__(/*! ./theme-toggle */ "./resources/js/theme-toggle.js");
+
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /**
  * The following block of code may be used to automatically register your
@@ -49488,6 +49490,44 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/theme-toggle.js":
+/*!**************************************!*\
+  !*** ./resources/js/theme-toggle.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var body = document.querySelectorAll('body');
+var bodyClass = body.classList;
+var themeToggle = document.querySelector('#theme-toggle');
+var footer = document.querySelectorAll('.footer');
+var light = document.querySelectorAll('.light');
+var dark = document.querySelectorAll('.dark');
+var flight = document.querySelectorAll('.footer-light');
+var fdark = document.querySelectorAll('.footer-dark');
+themeToggle.addEventListener('click', function () {
+  light.forEach(function (elemento) {
+    return elemento.classList.toggle("light");
+  });
+  dark.forEach(function (elemento) {
+    return elemento.classList.toggle("dark");
+  }); //body.classList.toggle("light");
+  //body.classList.toggle("dark");
+
+  themeToggle.classList.toggle("btn-light");
+  themeToggle.classList.toggle("btn-dark"); //footer.classList.toggle("footer-light");
+  //footer.classList.toggle("footer-dark");
+
+  flight.forEach(function (elemento) {
+    return elemento.classList.toggle("footer-light");
+  });
+  fdark.forEach(function (elemento) {
+    return elemento.classList.toggle("footer-dark");
+  });
+});
+
+/***/ }),
+
 /***/ "./resources/sass/app.scss":
 /*!*********************************!*\
   !*** ./resources/sass/app.scss ***!
@@ -49506,8 +49546,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/lazaro/Escritorio/repositorios_locales/argames/argames/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/lazaro/Escritorio/repositorios_locales/argames/argames/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\Punto Digital\Documents\argames\argames\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Punto Digital\Documents\argames\argames\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

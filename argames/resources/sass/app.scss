@@ -14,6 +14,107 @@ $fa-font-path: "../webfonts";
 @import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
 @import "~@fortawesome/fontawesome-free/scss/solid.scss";
 @import "~@fortawesome/fontawesome-free/scss/brands.scss";
+
+:root {
+  /*--------------------Light Theme Variables (Default)--------------------*/
+  --light-theme-background-color: #1d2c38;
+  --light-theme-darker-background-color: #334e63;
+  --light-theme-text-color: #efbf3a;
+  --light-theme-link-color: #fff;
+  --light-theme-link-hover-color: #fa2600;
+
+  /*--------------------Dark Theme Variables--------------------*/ 
+  --dark-theme-background-color: #000;
+  --dark-theme-darker-background-color: #555;
+  --dark-theme-text-color: #f00;
+  --dark-theme-link-color: #09f;
+  --dark-theme-link-hover-color: #00955b; 
+
+  /*--------------------Other Variables--------------------*/ 
+  --link-hover-timing: all 0.25s ease-in-out;
+  --theme-change-timing: all 1s ease-in-out;
+}
+
+
+/*--------------------Universal Styles--------------------*/ 
+
+a {    
+  transition: var(--link-hover-timing);
+}
+
+.btn {
+  border: none;
+  cursor: pointer;
+  transition: all .5s ease-in-out;
+}
+
+.btn-light {
+  background: var(--light-theme-background-color);
+  color: var(--light-theme-text-color);
+  padding:0;
+}
+
+.btn-light:hover {
+  color: var(--dark-theme-text-color);
+}
+
+.btn-dark {
+  background: var(--dark-theme-background-color);
+  color: var(--dark-theme-text-color);
+  padding:0;}
+
+.btn-dark:hover {
+  color: var(--light-theme-text-color);
+}
+
+
+/*--------------------Light Theme Styles (Default)--------------------*/
+.light {
+  background: var(--light-theme-background-color);
+  color: var(--light-theme-text-color);
+  transition: var(--theme-change-timing);
+}
+
+.light a {
+  color: var(--light-theme-link-color);
+}
+
+.light a:hover {
+  color: var(--dark-theme-text-color);
+}
+
+.footer-light {
+  background: var(--light-theme-text-color);
+  border:1.1px solid var(--light-theme-text-color);
+  color: var(--light-theme-background-color);
+}
+
+/*--------------------Dark Theme Styles--------------------*/
+.dark {
+  background: var(--dark-theme-background-color);
+  color: var(--dark-theme-text-color);
+  transition: var(--theme-change-timing);
+}
+
+.dark a {
+  color: var(--dark-theme-link-color);
+}
+
+.dark a:hover {
+  color: var(--light-theme-text-color);
+}
+
+.footer-dark {
+  background: var(--dark-theme-text-color);
+  border:1.1px solid var(--dark-theme-text-color);
+  color: var(--dark-theme-background-color);}
+
+/*--------------------Body Styles--------------------*/
+
+.footer {
+  transition: var(--theme-change-timing);
+}
+
 /* ///////////////////////////////////////////////// INDEX . CSS////////////////////// */
 
 html * {
