@@ -9,7 +9,10 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}" defer>
-    <script type="text/javascript" src="{{ URL::asset('js/plugins/wow.min.js') }}" defer></script>
+    <script type="text/javascript" src="{{ URL::asset('js/plugins/wow.min.js') }}"></script>
+    <script>
+      new WOW().init();
+    </script>
 </head>
 <body>
 

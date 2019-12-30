@@ -12,15 +12,15 @@
             $pass= "";
 
             try{
-              $this->com= new PDO($dsn, $user, $pass);
+              $this->com = new PDO($dsn, $user, $pass);
             }catch (Exception $e) {
               echo "Database conect error:" . $e->getMessage();
             }
         }
 
         public function guardarUsuario(Usuario $usuario){
-            $db=$this->com;
-            $query=$db->prepare("INSERT INTO usuarios VALUES(default, :name, :username, :password, :email, :genero, :edad, :ext_img)");
+            $db = $this->com;
+            $query = $db->prepare("INSERT INTO usuarios VALUES(default, :name, :username, :password, :email, :genero, :edad, :ext_img)");
             $query->bindValue(":name", $usuario->getName(), PDO::PARAM_STR);
             $query->bindValue(":username", $usuario->getUsername(), PDO::PARAM_STR);
             $query->bindValue(":password", $usuario->getPassword(), PDO::PARAM_STR);

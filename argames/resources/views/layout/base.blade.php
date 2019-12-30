@@ -64,6 +64,7 @@
       </div>
     </div>
 
+  
     <script src="{{ mix('/js/app.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/plugins/main.js') }}"></script>
 

@@ -62,25 +62,18 @@ jQuery(document).ready(function($){
 // 			readURL(this);
 // 	});
 function readURL(input) {
-  if (input.files && input.files[0]) {
-
-    var reader = new FileReader();
-
-    reader.onload = function(e) {
-      $('.image-upload-wrap').hide();
-
-      $('.file-upload-image').attr('src', e.target.result);
-      $('.file-upload-content').show();
-
-      $('.image-title').html(input.files[0].name);
-    };
-
-    reader.readAsDataURL(input.files[0]);
-
-  } else {
-    removeUpload();
-  }
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+		
+		reader.onload = function (e) {
+			$('#profile-img-tag').attr('src', e.target.result);
+		}
+		reader.readAsDataURL(input.files[0]);
+	}
 }
+$("#profile-img").change(function(){
+	readURL(this);
+});
 
 function removeUpload() {
   $('.file-upload-input').replaceWith($('.file-upload-input').clone());
@@ -93,3 +86,37 @@ $('.image-upload-wrap').bind('dragover', function () {
 	$('.image-upload-wrap').bind('dragleave', function () {
 		$('.image-upload-wrap').removeClass('image-dropping');
 });
+
+// REGISTER VALIDATION
+
+// const registerForm = document.getElementById('registerForm');
+
+
+registerForm.addEventListener('submit', (event) => {
+
+	const username = document.getElementById('username').value;
+	const name = document.getElementById('name').value;
+	const email = document.getElementById('email').value;
+	const age = document.getElementById('age').value;
+	const password = document.getElementById('password').value;
+	const password_confirmation = document.getElementById('password_confirmation').value;
+
+
+	if(username === "" || username.length < 4) showErrorMessage("error_username", event);
+	if(name === "" || name.length < 4) showErrorMessage("error_name", event);
+	if(email === "") showErrorMessage("error_email", event);
+	if(age < 7 || age > 100) showErrorMessage("error_age", event);
+	if(password === "") showErrorMessage("error_password", event);
+	if(password_confirmation === "" || password !== password_confirmation) showErrorMessage("error_confirm_password", event);
+
+
+
+});
+
+
+function showErrorMessage(elementErrorMessage, e){
+
+	document.getElementById(elementErrorMessage).style.display = 'block';
+	e.preventDefault();
+
+}

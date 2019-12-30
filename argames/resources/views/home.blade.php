@@ -23,7 +23,7 @@
             </div>
           </li>
         </a>
-        <a href="/gameNotEnable" class="anchor_img_game">
+        <a href="/truco" class="anchor_img_game">
           <li class="wow pulse" style="background-image:url('images/truco_imagen_edit.jpg'); ">
             <div class="container-games">
               <img src="images/transparente.png" alt="Avatar" class="image">
@@ -51,7 +51,7 @@
         </li>
       </a>
 
-      <a href="/gameNotEnable" class=" anchor_img_game">
+      <a href="/ajedrez" class=" anchor_img_game">
         <li class="wow pulse" style="background-image:url('images/ajedrez_imagen_edit.jpg'); ">
           <div class="container-games">
             <img src="images/transparente.png" alt="Avatar" class="image">
@@ -64,7 +64,7 @@
           </div>
         </li>
       </a>
-      <a href="/gameNotEnable" class=" anchor_img_game">
+      <a href="/damas" class=" anchor_img_game">
         <li class="wow pulse" style="background-image:url('images/damas.jpg'); ">
           <div class="container-games">
             <img src="images/transparente.png" alt="Avatar" class="image">
@@ -78,7 +78,7 @@
         </li>
       </a>
 
-        <a href="/gameNotEnable" class=" anchor_img_game">
+        <a href="/tateti" class=" anchor_img_game">
           <li class="wow pulse" style="background-image:url('images/tateti.jpg'); ">
             <div class="container-games">
               <img src="images/transparente.png" alt="Avatar" class="image">

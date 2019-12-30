@@ -39,8 +39,11 @@
                   </div>
                 </div>
                 @if(isset($_GET["edit"]))
-                  <button name="img"  type="button" class="file-upload-btn mb-3" onclick="$('.file-upload-input').trigger( 'click' )" style="border-radius:100px;">Selecctionar imagen</button>
-                  @error('img')
+                <input id="profile-img" name="img" type="file" style="opacity: 0">
+                <label for="profile-img" id="profile-img" name="img" class="file-upload-btn mb-3 text-center" style="border-radius:100px;">
+                  Seleccionar Imagen
+                </label>
+                @error('img')
                     <p>{{$message}}</p>
                   @enderror
                 @endif
@@ -141,14 +144,6 @@
                             <p>{{($user->genre == "Varon")? "Varon" : (($user->genre == "Mujer")? "Mujer":"Otro")}} </p>
                           @endif
                         </div>
-                      </div>
-                      <div class="row ">
-                          <div class="col-md-6 pb-2">
-                              <label for="remember" class="pt-2">Recordarme</label>
-                          </div>
-                          <div class="col-md-6">
-                            <input type="checkbox" class="mt-2 mb-3" {{ old('remember') ? 'checked' : '' }} disabled>
-                          </div>
                       </div>
                       <div class="row ">
 
@@ -261,4 +256,5 @@
           </div>
 
     </div>
+    
 @endsection

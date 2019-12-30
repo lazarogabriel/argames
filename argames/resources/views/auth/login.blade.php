@@ -5,13 +5,13 @@
 
     <div class="container" style="min-height:46vw;">
       <div class="row align-items-center">
-        <div  class="col-xl-4 col-lg-5 col-md-12 wow rubberBand ">
+        <div  class="col-xl-4 col-lg-5 col-md-12 text-center wow rubberBand">
           <p class="text-center argames">ArGames</p>
-          <footer class="text-lg-left text-sm-center blockquote-footer argames_downtext">this is argames, an argentinian games site</footer>
+          <p class="blockquote-footer text-light">this is argames, an argentinian games site</p>
         </div>
         <div class="col-xl-4 col-lg-2 col-md-2"></div>
           <div class="col-xl-4 col-lg-5 col-md-10 pl-1">
-            <form id="contact-stack-form" class="form wow bounceInRight" method="post">
+            <form id="loginForm" class="form wow bounceInRight" method="POST">
               @csrf
               <div class="cube-1 w-100 cube">
                 <div class=" front"></div>
@@ -23,7 +23,7 @@
               </div>
               <div class=" cube-2 w-100 cube">
                 <div class=" front">
-                  <label for="email" style="font-style:bold;" class=" label">Email</label>
+                  <label for="email" style="font-style:bold;" class="label">Email</label>
                 </div>
                 <div class=" back"></div>
                 <div class=" top"></div>
@@ -52,6 +52,9 @@
               <div class=" cube-5 w-300 cube">
                 <div class=" front">
                   <input id="email" type="text" class="field form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Introduzca su E-mail">
+                  <div class="invalid-feedback">
+                    Please choose a username.
+                  </div>
                 </div>
                 <div class=" back"></div>
                 <div class=" top"></div>
@@ -59,6 +62,7 @@
                 <div class=" left"></div>
                 <div class=" right"></div>
               </div>
+              
 
               @error('email')
                   <div class=" cube-31 w-300 cube text-center">
