@@ -14,12 +14,12 @@ themeToggle.addEventListener('click', () => {
     );
     dark.forEach((elemento)=> 
         elemento.classList.toggle("dark"));
-    //body.classList.toggle("light");
-    //body.classList.toggle("dark");
+    body.classList.toggle("light");
+    body.classList.toggle("dark");
     themeToggle.classList.toggle("btn-light");
     themeToggle.classList.toggle("btn-dark");
-    //footer.classList.toggle("footer-light");
-    //footer.classList.toggle("footer-dark");
+    footer.classList.toggle("footer-light");
+    footer.classList.toggle("footer-dark");
     flight.forEach((elemento)=> 
         elemento.classList.toggle("footer-light")
     );

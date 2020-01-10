@@ -59,7 +59,7 @@
 
     @yield('contenido')
 
-    <div id="footer footer-light" class="container pt-2">
+    <div id="footer " class="container pt-2">
       <div class="row mb-3 align-items-center wow fadeInUp">
         <div class="col-lg-10 col-md-9 col-sm-12 text-white">
          <p class="text-md-left text-center">© <script>document.write(new Date().getFullYear());</script> Todos los derechos reservados. Hecho por <a href="#" class=" text-warning" target="_blank"><span class=" font-weight-bold argames_link light">ArGames</span></a></p>
